@@ -6,7 +6,6 @@ use App\Models\User\CategoryFather;
 use App\Models\User\Category;
 use App\Models\User\SousCategory;
 use App\Models\User\Product;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
@@ -18,7 +17,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
+        $faker = \Faker\Factory::create();
 
     
 
