@@ -244,15 +244,15 @@
 														</div>
 														<div>
 															<div class="def-number-input  number-input safari_only mb-0 w-100 boutton-variante">
-																<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-																class="minus qty ajout"> <i class="fa fa-minus"></i> </button>
+																<button onclick="this.parentNode.querySelector('input[type=number]').stepDown();sendqty(this)"
+																class="minus  ajout"> <i class="fa fa-minus"></i> </button>
 
-																<input class="quantity input-number" min="1" name="qty" id="qty" data-stock="{{$product->model->stock}}" data-id="{{ $product->rowId }}"
+																<input class="quantity input-qty input-number" min="1" name="qty" id="qty" data-stock="{{$product->model->stock}}" data-id="{{ $product->rowId }}"
 																value="{{ $product->qty }}"
 																 type="number">
 															
-																<button  type="submit" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-																class="plus qty ajout"><i class="fa fa-plus"></i></button>
+																<button  onclick="this.parentNode.querySelector('input[type=number]').stepUp();sendqty(this)"
+																class="plus ajout"><i class="fa fa-plus"></i></button>
 															</div>
 															<small id="passwordHelpBlock" class="form-text text-muted text-center">
 																(Note, 1 piece)
@@ -533,34 +533,33 @@
 	
 
 		<script>
-		 var selects = document.querySelectorAll('#qty');
-		 Array.from(selects).forEach((element) => {
-			 element.addEventListener('change' , function() {
-				 var rowId = element.getAttribute('data-id');
-				 var stock = element.getAttribute('data-stock');
-				 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-				 fetch(
-					 `/panier/${rowId}`,
-					 {
-						 headers: {
-							"Content-Type": "application/json",
-							"Accept": "application/json, text-plain, */*",
-							"X-Requested-With": "XMLHttpRequest",
-							"X-CSRF-TOKEN": token
-						 },
-						 method: 'PATCH',
-						 body: JSON.stringify({
-							 qty: this.value,
-							 stock: stock
-						 })
-					 }
-				 ).then((data) => {
-					 console.log(data);
-					 location.reload();
-				 }).catch((error) => {
-					 console.log(error);
-				 })
-			 });
-		 });
+			function sendqty(element){
+				var input = element.parentNode.querySelector('input[type=number]')
+				var rowId = input.getAttribute('data-id');
+				var stock = input.getAttribute('data-stock');
+				var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+					console.log(rowId)
+				fetch(
+					`/panier/${rowId}`,
+					{
+						headers: {
+						"Content-Type": "application/json",
+						"Accept": "application/json, text-plain, */*",
+						"X-Requested-With": "XMLHttpRequest",
+						"X-CSRF-TOKEN": token
+						},
+						method: 'PATCH',
+						body: JSON.stringify({
+							qty: input.value,
+							stock: stock
+						})
+					}
+				).then((data) => {
+					console.log(data);
+					location.reload();
+				}).catch((error) => {
+					console.log(error);
+				})
+			}
 		</script>
 	@endsection

@@ -43,7 +43,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(url()->previous());
         $this->validate($request,[
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
