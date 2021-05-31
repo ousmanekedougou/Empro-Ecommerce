@@ -47,7 +47,7 @@ class ProfileController extends Controller
      */
     public function show($slug)
     {
-        $admin = User::Where('slug',Auth::guard('web')->user()->slug)->first();
+        $admin = User::Where('slug',Auth::user()->slug)->first();
         return view('admin.profile.index',compact('admin'));
     }
 

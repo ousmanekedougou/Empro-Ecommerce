@@ -71,7 +71,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-4">
-                                            <a href="{{ route('admin.profil.show',Auth::guard('web')->user()->slug) }}" class="btn btn-primary waves-effect waves-light btn-sm">Votre Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                            <a href="{{ route('admin.profil.show',Auth::user()->slug) }}" class="btn btn-primary waves-effect waves-light btn-sm">Votre Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
                                         </div>
                                     </div>
                                 </div>
