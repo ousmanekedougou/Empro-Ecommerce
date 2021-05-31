@@ -8,6 +8,7 @@ use App\Models\User\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Gloudemans\Shoppingcart\Facades\Cart;
 class ClientController extends Controller
 {
     public function __construct()
@@ -42,7 +43,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd(url()->previous());
         $this->validate($request,[
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
@@ -61,7 +62,12 @@ class ClientController extends Controller
         $add_client->password = Hash::make($request->password);
         $add_client->status = STATUS;
         $add_client->save();
-        return back();
+        if (Auth::attempt(['email' => $request->email,'password' => $request->password])) {
+            if (Cart::total() > 0) {
+                return redirect()->route('checkout.index');
+            }
+            return redirect()->route('client.home');
+        }
     }
 
     public function home(){

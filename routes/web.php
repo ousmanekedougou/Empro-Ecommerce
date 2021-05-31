@@ -21,7 +21,7 @@ Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->nam
 
 Route::resource('/product', App\Http\Controllers\User\ProductController::class);
 
-Route::get('/client/register', [App\Http\Controllers\User\ClientController::class,'index'])->name('client.index');
+Route::get('/client/register', [App\Http\Controllers\User\ClientController::class,'index'])->name('client.register');
 Route::post('/client/register', [App\Http\Controllers\User\ClientController::class,'store'])->name('client.store');
 Route::get('/client/login', [App\Http\Controllers\User\ClientController::class,'create'])->name('client.login');
 

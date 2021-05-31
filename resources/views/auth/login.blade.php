@@ -131,7 +131,7 @@
                         <div class="mt-5 text-center">
                             
                             <div>
-                                <p>Vous n'avez pas de compte? <a href="" class="fw-medium text-primary"> Creer votre compte </a> </p>
+                                <p>Vous n'avez pas de compte? <a href="{{ route('client.register') }}" class="fw-medium text-primary"> Creer votre compte </a> </p>
                                 <p>© <script>document.write(new Date().getFullYear())</script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
                             </div>
                         </div>

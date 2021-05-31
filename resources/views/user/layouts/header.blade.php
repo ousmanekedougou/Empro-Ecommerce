@@ -149,6 +149,10 @@
 												rel="nofollow" class="dropdown-item">
 												<span>Se Connecter</span>
 											</a>
+												<a href="{{ route('client.register') }}" title="Log in to your customer account"
+												rel="nofollow" class="dropdown-item">
+												<span>S'inscrire</span>
+											</a>
 										@else
 											<a href="#" title="Log in to your customer account"
 												rel="nofollow" class="dropdown-item"
