@@ -53,7 +53,7 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->name('admin.')->group(f
     Route::resource('/membre', App\Http\Controllers\Admin\MembreController::class); 
     Route::resource('/order', App\Http\Controllers\Admin\OrderController::class); 
     Route::resource('/contact', App\Http\Controllers\Admin\ContactController::class); 
-    Route::get('/profil', [App\Http\Controllers\Admin\ProfileController::class,'show'])->name('profil.show'); 
+    Route::get('/profil/show/{slug}', [App\Http\Controllers\Admin\ProfileController::class,'show'])->name('profil.show'); 
     Route::put('/profil/update/{id}', [App\Http\Controllers\Admin\ProfileController::class,'update'])->name('profil.update'); 
     Route::get('/search', [App\Http\Controllers\Admin\ProductController::class, 'search'])->name('product.search');
 });
