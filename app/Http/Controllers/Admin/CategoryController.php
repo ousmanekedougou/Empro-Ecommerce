@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         
-        if (Auth::user()->status == 1) {
+        if (Auth::user()->status != 1) {
            $categorys = Category::where('user_id',Auth::user()->id)->get();
         }else{
             $categorys = Category::all();
