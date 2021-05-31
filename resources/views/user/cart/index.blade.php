@@ -495,71 +495,68 @@
 
 
 	@section('footer')
-	<!-- Pour le panier un -->
-		<!-- <script>
-		 var selects = document.querySelectorAll('#qty');
-		 Array.from(selects).forEach((element) => {
-			 element.addEventListener('change' , function() {
-				 var rowId = element.getAttribute('data-id');
-				 var stock = element.getAttribute('data-stock');
-				 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-				 fetch(
-					 `/panier/${rowId}`,
-					 {
-						 headers: {
-							"Content-Type": "application/json",
-							"Accept": "application/json, text-plain, */*",
-							"X-Requested-With": "XMLHttpRequest",
-							"X-CSRF-TOKEN": token
-						 },
-						 method: 'PATCH',
-						 body: JSON.stringify({
-							 qty: this.value,
-							 stock: stock
-						 })
-					 }
-				 ).then((data) => {
-					 console.log(data);
-					 location.reload();
-				 }).catch((error) => {
-					 console.log(error);
-				 })
-			 });
-		 });
-		</script>
-		<script src="{{asset('user/css/card-bootstrap/build.min.js')}}"></script>
-		<script src="{{asset('user/css/card-bootstrap/jquery.min.js')}}"></script> -->
-	<!-- Fin pour le panier un -->
 	
 
 		<script>
-			function sendqty(element){
-				var input = element.parentNode.querySelector('input[type=number]')
-				var rowId = input.getAttribute('data-id');
-				var stock = input.getAttribute('data-stock');
-				var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-					console.log(rowId)
-				fetch(
-					`/panier/${rowId}`,
-					{
-						headers: {
-						"Content-Type": "application/json",
-						"Accept": "application/json, text-plain, */*",
-						"X-Requested-With": "XMLHttpRequest",
-						"X-CSRF-TOKEN": token
-						},
-						method: 'PATCH',
-						body: JSON.stringify({
-							qty: input.value,
-							stock: stock
-						})
-					}
-				).then((data) => {
-					console.log(data);
-					location.reload();
-				}).catch((error) => {
-					console.log(error);
-				})
-			}
+	
+
+		function sendqty(element){
+			var input = element.parentNode.querySelector('input[type=number]')
+			var rowId = input.getAttribute('data-id');
+			var stock = input.getAttribute('data-stock');
+			var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+				 console.log(rowId)
+			fetch(
+				`/panier/${rowId}`,
+				{
+					headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json, text-plain, */*",
+					"X-Requested-With": "XMLHttpRequest",
+					"X-CSRF-TOKEN": token
+					},
+					method: 'PATCH',
+					body: JSON.stringify({
+						qty: input.value,
+						stock: stock
+					})
+				}
+			).then((data) => {
+				console.log(data);
+				location.reload();
+			}).catch((error) => {
+				console.log(error);
+			})
+		}
+
+		//  selects.forEach((element) => {
+		// 		 console.log(element);
+		// 	 element.addEventListener('change' , function() {
+		// 		 var rowId = element.getAttribute('data-id');
+		// 		 var stock = element.getAttribute('data-stock');
+		// 		 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+		// 		 fetch(
+		// 			 `/panier/${rowId}`,
+		// 			 {
+		// 				 headers: {
+		// 					"Content-Type": "application/json",
+		// 					"Accept": "application/json, text-plain, */*",
+		// 					"X-Requested-With": "XMLHttpRequest",
+		// 					"X-CSRF-TOKEN": token
+		// 				 },
+		// 				 method: 'PATCH',
+		// 				 body: JSON.stringify({
+		// 					 qty: this.value,
+		// 					 stock: stock
+		// 				 })
+		// 			 }
+		// 		 ).then((data) => {
+		// 			 console.log(data);
+		// 			 location.reload();
+		// 		 }).catch((error) => {
+		// 			 console.log(error);
+		// 		 })
+		// 	 });
+		//  });
 		</script>
 	@endsection

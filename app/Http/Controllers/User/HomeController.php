@@ -22,7 +22,7 @@ class HomeController extends Controller
                     $products[++$i]
                 ];
             }
-        
+        $populars = [];
         $category_fathers = CategoryFather::limit(12)->get();
           for ($i=0; $i < count($category_fathers); $i++) { 
                 $populars[] = [
