@@ -265,7 +265,7 @@
 															<div class="thumb-category">
 																<a href="{{ route('product.index', ['categorie'
 																=> $popular->slug]) }}"><img
-																		src="{{$popular->image}}"
+																		src="{{Storage::url($popular->image)}}"
 																		alt="" /></a>
 															</div>
 															<div class="desc-listcategoreis">
@@ -379,18 +379,18 @@
 															<a href="{{ route('product.show',$product->slug) }}"
 																class="thumbnail product-thumbnail">
 																<img class="first-image "
-																	src="{{ $product->image }}"
+																	src="{{Storage::url($product->image)}}"
 																	alt="Originals Kaval Windbreaker..."
-																	data-full-size-image-url="{{ $product->image }}">
+																	data-full-size-image-url="{{Storage::url($product->image)}}">
 																<img class="img-responsive second-image animation9"
-																	src="{{ $product->image }}"
+																	src="{{Storage::url($product->image)}}"
 																	alt="" itemprop="image" />
 
 															</a>
 
 															<div class="quick-view">
 
-																<a class="quick_view" href="#" data-link-action="quickview"
+																<a class="quick_view" href="{{ route('product.show',$product->slug) }}" data-link-action="quickview"
 																	title="Quick view">
 																	<span>Quick view</span>
 																</a>
@@ -426,11 +426,10 @@
 														<div class="product_desc">
 															<div class="inner_desc">
 																<div class="manufacturer"><a
-																		href="brand/1-studio-design.html?id_manufacturer=1">Studio
-																		Design</a></div>
+																		href="{{ route('product.show',$product->slug) }}">{{$product->subtitle}}</a></div>
 
 																<h3 itemprop="name"><a
-																		href="automobiles/1-1-originals-kaval-windbreaker-winter-jacket.html#/1-size-s/8-color-white"
+																		href="{{ route('product.show',$product->slug) }}"
 																		class="product_name one_line"
 																		title="Originals Kaval Windbreaker Winter Jacket">{{ $product->title }}</a></h3>
 
@@ -479,21 +478,14 @@
 																<ul class="add-to-links">
 																	<li class="cart">
 																		<div class="product-add-to-cart">
-																			<form
-																				action="http://demo.posthemes.com/pos_ecolife_marketplace/en/cart"
-																				method="post"
-																				class="add-to-cart-or-refresh">
-																				<input type="hidden" name="token"
-																					value="203b2fb46b107eabda9dd64ae8ebc173">
-																				<input type="hidden" name="id_product"
-																					value="1"
-																					class="product_page_product_id">
-																				<input type="hidden" name="qty" value="1">
+																			<form action="{{route('panier.store')}}" method="post" class="add-to-cart-or-refresh">
+																				@csrf
+																				<input type="hidden" name="product_id" value="{{ $product->id }}">
 																				<button
 																					class="button ajax_add_to_cart_button add-to-cart btn-default"
-																					data-button-action="add-to-cart"
+																					
 																					type="submit">
-																					<i class="fa fa-shopping-cart"></i>Voire
+																					<i class="fab fa-shopping-cart"></i>Ajouter
 																				</button>
 																			</form>
 																		</div>
@@ -551,11 +543,11 @@
 															<div class="variant-links">
 
 																<div class="variant-links">
-																	<a href="automobiles/1-1-originals-kaval-windbreaker-winter-jacket.html#/1-size-s/8-color-white"
+																	<a href="{{ route('product.show',$product->slug) }}"
 																		class="color" title="White"
 																		style="background-color: #ffffff"><span
 																			class="sr-only">White</span></a>
-																	<a href="automobiles/1-2-originals-kaval-windbreaker-winter-jacket.html#/1-size-s/11-color-black"
+																	<a href="{{ route('product.show',$product->slug) }}"
 																		class="color" title="Black"
 																		style="background-color: #434A54"><span
 																			class="sr-only">Black</span></a>
@@ -599,10 +591,10 @@
 				<div class="home-banner">
 					<div class="row">
 						<div class="col col-md-6 col-xs-12">
-							<div class="banner-box"><a href="#"><img src="{{asset('user/img/cms/1_1.jpg')}}" alt="" /></a></div>
+							<div class="banner-box"><a href="{{ route('product.index') }}"><img src="{{asset('user/img/cms/1_1.jpg')}}" alt="" /></a></div>
 						</div>
 						<div class="col col-md-6 col-xs-12">
-							<div class="banner-box"><a href="#"><img src="{{asset('user/img/cms/2_1.jpg')}}" alt="" /></a></div>
+							<div class="banner-box"><a href="{{ route('product.index') }}"><img src="{{asset('user/img/cms/2_1.jpg')}}" alt="" /></a></div>
 						</div>
 					</div>
 				</div>
@@ -630,9 +622,9 @@
 											<a href="{{ route('product.show',$product->slug) }}"
 												class="thumbnail product-thumbnail">
 												<img class="first-image "
-													src="{{ $product->image}}"
+													src="{{ Storage::url($product->image) }}"
 													alt="Juicy Couture Tricot Logo..."
-													data-full-size-image-url="{{ $product->image}}">
+													data-full-size-image-url="{{ Storage::url($product->image) }}">
 
 											</a>
 
@@ -700,9 +692,9 @@
 											<a href="{{ route('product.show',$product->slug) }}"
 												class="thumbnail product-thumbnail">
 												<img class="first-image "
-													src="{{ $product->image}}"
+													src="{{ Storage::url($product->image) }}"
 													alt="Juicy Couture Tricot Logo..."
-													data-full-size-image-url="{{ $product->image}}">
+													data-full-size-image-url="{{ Storage::url($product->image) }}">
 
 											</a>
 
@@ -792,17 +784,17 @@
 											<article
 												class="style_product_default product-miniature js-product-miniature item_in"
 												data-id-product="7" data-id-product-attribute="0" itemscope
-												itemtype="http://schema.org/Product">
+												itemtype="{{ route('product.show',$product->slug) }}">
 												<div class="img_block">
 
 													<a href="{{ route('product.show',$product->slug) }}"
 														class="thumbnail product-thumbnail">
 														<img class="first-image "
-															src="{{$product->image}}"
+															src="{{ Storage::url($product->image) }}"
 															alt="Trans-Weight Hooded Wind..."
-															data-full-size-image-url="{{$product->image}}">
+															data-full-size-image-url="{{ Storage::url($product->image) }}">
 														<img class="img-responsive second-image animation9"
-															src="{{$product->image}}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" itemprop="image" />
 
 													</a>
@@ -868,22 +860,17 @@
 														<ul class="add-to-links">
 															<li class="cart">
 																<div class="product-add-to-cart">
-																	<form
-																		action="http://demo.posthemes.com/pos_ecolife_marketplace/en/cart"
-																		method="post" class="add-to-cart-or-refresh">
-																		<input type="hidden" name="token"
-																			value="203b2fb46b107eabda9dd64ae8ebc173">
-																		<input type="hidden" name="id_product" value="7"
-																			class="product_page_product_id">
-																		<input type="hidden" name="qty" value="1">
+																	<form action="{{route('panier.store')}}" method="post" class="add-to-cart-or-refresh">
+																		@csrf
+																		<input type="hidden" name="product_id" value="{{ $product->id }}">
 																		<button
 																			class="button ajax_add_to_cart_button add-to-cart btn-default"
-																			data-button-action="add-to-cart"
+																			
 																			type="submit">
-																			<i class="fa fa-shopping-cart"></i> Add to
-																			cart
+																			<i class="fab fa-shopping-cart"></i>Ajouter
 																		</button>
 																	</form>
+																	
 																</div>
 															</li>
 															<li>
@@ -984,11 +971,11 @@
 													<a href="{{ route('product.show',$product->slug) }}"
 														class="thumbnail product-thumbnail">
 														<img class="first-image "
-															src="{{$product->image}}"
+															src="{{ Storage::url($product->image) }}"
 															alt="Trans-Weight Hooded Wind..."
-															data-full-size-image-url="{{$product->image}}">
+															data-full-size-image-url="{{ Storage::url($product->image) }}">
 														<img class="img-responsive second-image animation9"
-															src="{{$product->image}}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" itemprop="image" />
 
 													</a>
@@ -1054,20 +1041,14 @@
 														<ul class="add-to-links">
 															<li class="cart">
 																<div class="product-add-to-cart">
-																	<form
-																		action="http://demo.posthemes.com/pos_ecolife_marketplace/en/cart"
-																		method="post" class="add-to-cart-or-refresh">
-																		<input type="hidden" name="token"
-																			value="203b2fb46b107eabda9dd64ae8ebc173">
-																		<input type="hidden" name="id_product" value="7"
-																			class="product_page_product_id">
-																		<input type="hidden" name="qty" value="1">
+																	<form action="{{route('panier.store')}}" method="post" class="add-to-cart-or-refresh">
+																		@csrf
+																		<input type="hidden" name="product_id" value="{{ $product->id }}">
 																		<button
 																			class="button ajax_add_to_cart_button add-to-cart btn-default"
-																			data-button-action="add-to-cart"
+																			
 																			type="submit">
-																			<i class="fa fa-shopping-cart"></i> Add to
-																			cart
+																			<i class="fab fa-shopping-cart"></i>Ajouter
 																		</button>
 																	</form>
 																</div>
@@ -1170,11 +1151,11 @@
 													<a href="{{ route('product.show',$product->slug) }}"
 														class="thumbnail product-thumbnail">
 														<img class="first-image "
-															src="{{$product->image}}"
+															src="{{ Storage::url($product->image) }}"
 															alt="Trans-Weight Hooded Wind..."
-															data-full-size-image-url="{{$product->image}}">
+															data-full-size-image-url="{{ Storage::url($product->image) }}">
 														<img class="img-responsive second-image animation9"
-															src="{{$product->image}}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" itemprop="image" />
 
 													</a>
@@ -1240,20 +1221,14 @@
 														<ul class="add-to-links">
 															<li class="cart">
 																<div class="product-add-to-cart">
-																	<form
-																		action="http://demo.posthemes.com/pos_ecolife_marketplace/en/cart"
-																		method="post" class="add-to-cart-or-refresh">
-																		<input type="hidden" name="token"
-																			value="203b2fb46b107eabda9dd64ae8ebc173">
-																		<input type="hidden" name="id_product" value="7"
-																			class="product_page_product_id">
-																		<input type="hidden" name="qty" value="1">
+																	<form action="{{route('panier.store')}}" method="post" class="add-to-cart-or-refresh">
+																		@csrf
+																		<input type="hidden" name="product_id" value="{{ $product->id }}">
 																		<button
 																			class="button ajax_add_to_cart_button add-to-cart btn-default"
-																			data-button-action="add-to-cart"
+																			
 																			type="submit">
-																			<i class="fa fa-shopping-cart"></i> Add to
-																			cart
+																			<i class="fab fa-shopping-cart"></i>Ajouter
 																		</button>
 																	</form>
 																</div>
@@ -1330,7 +1305,7 @@
 						<div class="logo-slider owl-carousel">
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/1.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1338,7 +1313,7 @@
 							</div>
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/2.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1346,7 +1321,7 @@
 							</div>
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/3.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1354,7 +1329,7 @@
 							</div>
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/4.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1362,7 +1337,7 @@
 							</div>
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/5.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1370,7 +1345,7 @@
 							</div>
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/6.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1378,7 +1353,7 @@
 							</div>
 							<div>
 								<div class="item-banklogo">
-									<a href="http://posthemes.com/">
+									<a href="">
 										<img class="replace-2x img-responsive" src="{{asset('user/img/blocklogo/7.jpg')}}"
 											alt="Logo" />
 									</a>
@@ -1509,13 +1484,13 @@
 											<article class="blog_post">
 												<div class="blog_post_content_top">
 													<div class="post_thumbnail">
-														<a href="xipblog/post/2_this-is-secound-post-for-xipblog4884.html?page_type=post"
+														<a href=""
 															class="img_content"><img class="xipblog_img img-responsive"
 																src="{{asset('user/modules/xipblog/img/home_default-blog2.jpg')}}"
 																alt="This is Secound Post For XipBlog"></a>
 														<div class="meta_category">
 															<a
-																href="xipblog/category/1_fashione9f8.html?page_type=category&amp;subpage_type=post">Fashion</a>
+																href="">Fashion</a>
 														</div>
 													</div>
 												</div>
@@ -1523,7 +1498,7 @@
 													<div class="content-inner">
 
 														<h4 class="post_title"><a
-																href="xipblog/post/2_this-is-secound-post-for-xipblog4884.html?page_type=post">This
+																href="">This
 																is Secound Post For XipBlog</a></h4>
 														<div class="post_meta clearfix">
 															<p class="meta_author">
@@ -1540,7 +1515,7 @@
 															typesetting industry. Lorem Ipsum has been the industrys ...
 														</p>
 														<div class="read_more"><a
-																href="xipblog/post/2_this-is-secound-post-for-xipblog4884.html?page_type=post">Read
+																href="">Read
 																More</a></div>
 
 													</div>
@@ -1550,13 +1525,13 @@
 											<article class="blog_post">
 												<div class="blog_post_content_top">
 													<div class="post_thumbnail">
-														<a href="xipblog/post/3_this-is-third-post-for-xipblog4884.html?page_type=post"
+														<a href=""
 															class="img_content"><img class="xipblog_img img-responsive"
 																src="{{asset('user/modules/xipblog/img/home_default-blog3.jpg')}}"
 																alt="This is Third Post For XipBlog"></a>
 														<div class="meta_category">
 															<a
-																href="xipblog/category/1_fashione9f8.html?page_type=category&amp;subpage_type=post">Fashion</a>
+																href="">Fashion</a>
 														</div>
 													</div>
 												</div>
@@ -1564,7 +1539,7 @@
 													<div class="content-inner">
 
 														<h4 class="post_title"><a
-																href="xipblog/post/3_this-is-third-post-for-xipblog4884.html?page_type=post">This
+																href="">This
 																is Third Post For XipBlog</a></h4>
 														<div class="post_meta clearfix">
 															<p class="meta_author">
@@ -1581,7 +1556,7 @@
 															typesetting industry. Lorem Ipsum has been the industrys ...
 														</p>
 														<div class="read_more"><a
-																href="xipblog/post/3_this-is-third-post-for-xipblog4884.html?page_type=post">Read
+																href="">Read
 																More</a></div>
 
 													</div>
@@ -1593,13 +1568,13 @@
 											<article class="blog_post">
 												<div class="blog_post_content_top">
 													<div class="post_thumbnail">
-														<a href="xipblog/post/4_this-is-fourth-post-for-xipblog4884.html?page_type=post"
+														<a href=""
 															class="img_content"><img class="xipblog_img img-responsive"
 																src="{{asset('user/modules/xipblog/img/home_default-blog4.jpg')}}"
 																alt="This is Fourth Post For XipBlog"></a>
 														<div class="meta_category">
 															<a
-																href="xipblog/category/1_fashione9f8.html?page_type=category&amp;subpage_type=post">Fashion</a>
+																href="">Fashion</a>
 														</div>
 													</div>
 												</div>
@@ -1607,7 +1582,7 @@
 													<div class="content-inner">
 
 														<h4 class="post_title"><a
-																href="xipblog/post/4_this-is-fourth-post-for-xipblog4884.html?page_type=post">This
+																href="">This
 																is Fourth Post For XipBlog</a></h4>
 														<div class="post_meta clearfix">
 															<p class="meta_author">
@@ -1624,7 +1599,7 @@
 															typesetting industry. Lorem Ipsum has been the industrys ...
 														</p>
 														<div class="read_more"><a
-																href="xipblog/post/4_this-is-fourth-post-for-xipblog4884.html?page_type=post">Read
+																href="">Read
 																More</a></div>
 
 													</div>
@@ -1634,13 +1609,13 @@
 											<article class="blog_post">
 												<div class="blog_post_content_top">
 													<div class="post_thumbnail">
-														<a href="xipblog/post/5_this-is-fourth-post-for-xipblog4884.html?page_type=post"
+														<a href=""
 															class="img_content"><img class="xipblog_img img-responsive"
 																src="{{asset('user/modules/xipblog/img/home_default-blog5.jpg')}}"
 																alt="This is the fifth post for XipBlog"></a>
 														<div class="meta_category">
 															<a
-																href="xipblog/category/1_fashione9f8.html?page_type=category&amp;subpage_type=post">Fashion</a>
+																href="">Fashion</a>
 														</div>
 													</div>
 												</div>
@@ -1648,7 +1623,7 @@
 													<div class="content-inner">
 
 														<h4 class="post_title"><a
-																href="xipblog/post/5_this-is-fourth-post-for-xipblog4884.html?page_type=post">This
+																href="">This
 																is the fifth post for XipBlog</a></h4>
 														<div class="post_meta clearfix">
 															<p class="meta_author">
@@ -1665,7 +1640,7 @@
 															typesetting industry. Lorem Ipsum has been the industrys ...
 														</p>
 														<div class="read_more"><a
-																href="xipblog/post/5_this-is-fourth-post-for-xipblog4884.html?page_type=post">Read
+																href="">Read
 																More</a></div>
 
 													</div>
@@ -1677,13 +1652,13 @@
 											<article class="blog_post">
 												<div class="blog_post_content_top">
 													<div class="post_thumbnail">
-														<a href="xipblog/post/6_this-is-first-post-for-xipblog4884.html?page_type=post"
+														<a href=""
 															class="img_content"><img class="xipblog_img img-responsive"
 																src="{{asset('user/modules/xipblog/img/home_default-blog6.jpg')}}"
 																alt="This is the sixth post for XipBlog"></a>
 														<div class="meta_category">
 															<a
-																href="xipblog/category/1_fashione9f8.html?page_type=category&amp;subpage_type=post">Fashion</a>
+																href="">Fashion</a>
 														</div>
 													</div>
 												</div>
@@ -1691,7 +1666,7 @@
 													<div class="content-inner">
 
 														<h4 class="post_title"><a
-																href="xipblog/post/6_this-is-first-post-for-xipblog4884.html?page_type=post">This
+																href="">This
 																is the sixth post for XipBlog</a></h4>
 														<div class="post_meta clearfix">
 															<p class="meta_author">
@@ -1708,7 +1683,7 @@
 															typesetting industry. Lorem Ipsum has been the industrys ...
 														</p>
 														<div class="read_more"><a
-																href="xipblog/post/6_this-is-first-post-for-xipblog4884.html?page_type=post">Read
+																href="">Read
 																More</a></div>
 
 													</div>
@@ -1718,13 +1693,13 @@
 											<article class="blog_post">
 												<div class="blog_post_content_top">
 													<div class="post_thumbnail">
-														<a href="xipblog/post/1_this-is-first-post-for-xipblog4884.html?page_type=post"
+														<a href=""
 															class="img_content"><img class="xipblog_img img-responsive"
 																src="{{asset('user/modules/xipblog/img/home_default-blog1.jpg')}}"
 																alt="This is First Post For XipBlog"></a>
 														<div class="meta_category">
 															<a
-																href="xipblog/category/1_fashione9f8.html?page_type=category&amp;subpage_type=post">Fashion</a>
+																href="">Fashion</a>
 														</div>
 													</div>
 												</div>
@@ -1732,7 +1707,7 @@
 													<div class="content-inner">
 
 														<h4 class="post_title"><a
-																href="xipblog/post/1_this-is-first-post-for-xipblog4884.html?page_type=post">This
+																href="">This
 																is First Post For XipBlog</a></h4>
 														<div class="post_meta clearfix">
 															<p class="meta_author">
@@ -1749,7 +1724,7 @@
 															typesetting industry. Lorem Ipsum has been the industrys ...
 														</p>
 														<div class="read_more"><a
-																href="xipblog/post/1_this-is-first-post-for-xipblog4884.html?page_type=post">Read
+																href="">Read
 																More</a></div>
 
 													</div>

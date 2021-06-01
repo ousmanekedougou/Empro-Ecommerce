@@ -20,9 +20,9 @@ class CategoryController extends Controller
     {
         
         if (Auth::user()->status != 1) {
-           $categorys = Category::where('user_id',Auth::user()->id)->get();
+           $categorys = Category::where('user_id',Auth::user()->id)->paginate(2);
         }else{
-            $categorys = Category::all();
+            $categorys = Category::paginate(2);
         }
         return view('admin.category.index',compact('categorys'));
     }

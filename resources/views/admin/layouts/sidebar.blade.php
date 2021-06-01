@@ -27,8 +27,8 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('admin.product.index') }}" key="t-products">Products</a></li>
-                                <li><a href="{{ route('admin.category.index') }}" key="t-product-detail">Categorys</a>
-                                <li><a href="{{ route('admin.category.create') }}" key="t-product-detail">Parents de categories</a>
+                                <li><a href="{{ route('admin.category.create') }}" key="t-product-detail">Categorys P</a>
+                                <li><a href="{{ route('admin.category.index') }}" key="t-product-detail">Category</a>
                                 </li>
                                 <li><a href="{{ route('admin.order.index') }}" key="t-orders">Orders</a></li>
                                 <li><a href="" key="t-customers">Customers</a></li>

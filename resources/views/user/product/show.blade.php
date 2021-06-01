@@ -90,7 +90,7 @@
 
 						<section id="main" itemscope itemtype="https://schema.org/Product">
 							<meta itemprop="url"
-								content="http://demo.posthemes.com/pos_ecolife_marketplace/en/electronics/12-juicy-couture-tricot-logo-stripe-jacket.html">
+								content="">
 
 							<div class="row">
 								<div class="col-md-5 ">
@@ -111,9 +111,9 @@
 													<div class="thumb-item">
 														<div class="easyzoom easyzoom--overlay">
 															<a
-																href="{{$product->image}}">
+																href="{{ Storage::url($product->image) }}">
 																<img class="" style="width:100%;"
-																	src="{{ $product->image }}"
+																	src="{{ Storage::url($product->image) }}"
 																	alt="" title="" itemprop="image">
 															</a>
 														</div>
@@ -122,9 +122,9 @@
 													<div class="thumb-item">
 														<div class="easyzoom easyzoom--overlay">
 															<a
-																href="{{ $product->image }}">
+																href="{{ Storage::url($product->image) }}">
 																<img class="" style="width:100%;"
-																	src="{{ $product->image }}"
+																	src="{{ Storage::url($product->image) }}"
 																	alt="" title="" itemprop="image">
 															</a>
 														</div>
@@ -133,9 +133,9 @@
 													<div class="thumb-item">
 														<div class="easyzoom easyzoom--overlay">
 															<a
-																href="{{$product->image}}">
+																href="{{ Storage::url($product->image) }}">
 																<img class="" style="width:100%;"
-																	src="{{$product->image}}"
+																	src="{{ Storage::url($product->image) }}"
 																	alt="" title="" itemprop="image">
 															</a>
 														</div>
@@ -144,9 +144,9 @@
 													<div class="thumb-item">
 														<div class="easyzoom easyzoom--overlay">
 															<a
-																href="{{ $product->image }}">
+																href="{{ Storage::url($product->image) }}">
 																<img class="" style="width:100%;"
-																	src="{{ $product->image }}"
+																	src="{{ Storage::url($product->image) }}"
 																	alt="" title="" itemprop="image">
 															</a>
 														</div>
@@ -161,28 +161,28 @@
 												<div class="thumb-container">
 													<div>
 														<img class="thumb js-thumb"
-															src="{{ $product->image }}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" title="" width="100" itemprop="image">
 													</div>
 												</div>
 												<div class="thumb-container">
 													<div>
 														<img class="thumb js-thumb  selected "
-															src="{{ $product->image }}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" title="" width="100" itemprop="image">
 													</div>
 												</div>
 												<div class="thumb-container">
 													<div>
 														<img class="thumb js-thumb "
-															src="{{ $product->image }}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" title="" width="100" itemprop="image">
 													</div>
 												</div>
 												<div class="thumb-container">
 													<div>
 														<img class="thumb js-thumb "
-															src="{{ $product->image }}"
+															src="{{ Storage::url($product->image) }}"
 															alt="" title="" width="100" itemprop="image">
 													</div>
 												</div>
@@ -379,11 +379,11 @@
 
 
 															<div class="product-quantity clearfix">
-																<div class="qty">
+																<!-- <div class="qty">
 																	<input type="text" name="qty" id="quantity_wanted"
 																		 class="input-group" min="1"
 																		aria-label="Quantity">
-																</div>
+																</div> -->
 
 																<div class="add">
 																	
@@ -903,17 +903,17 @@
 							@foreach($autres as $product_category)
 							<article class="style_product_default product-miniature js-product-miniature item_in"
 								data-id-product="1" data-id-product-attribute="1" itemscope
-								itemtype="http://schema.org/Product">
+								itemtype="">
 								<div class="img_block">
 
 									<a href="{{ route('product.show',$product_category->slug) }}"
 										class="thumbnail product-thumbnail">
 										<img class="first-image "
-											src="{{ $product->image }}"
+											src="{{ Storage::url($product_category->image) }}"
 											alt="Originals Kaval Windbreaker..."
 											data-full-size-image-url="http://demo.posthemes.com/pos_ecolife_marketplace/298-large_default/originals-kaval-windbreaker-winter-jacket.jpg">
 										<img class="img-responsive second-image animation9"
-											src="{{ $product->image }}"
+											src="{{ Storage::url($product_category->image) }}"
 											alt="" itemprop="image" />
 
 									</a>
@@ -1087,11 +1087,11 @@
 									<a href="{{ route('product.show',$meme_category->slug) }}"
 										class="thumbnail product-thumbnail">
 										<img class="first-image "
-											src="{{ $meme_category->image }}"
+											src="{{ Storage::url($meme_category->image) }}"
 											alt="Originals Kaval Windbreaker..."
-											data-full-size-image-url="../../298-large_default/originals-kaval-windbreaker-winter-jacket.jpg">
+											data-full-size-image-url="{{ Storage::url($meme_category->image) }}">
 										<img class="img-responsive second-image animation9"
-											src="{{$meme_category->image}}"
+											src="{{ Storage::url($meme_category->image) }}"
 											alt="" itemprop="image" />
 
 									</a>

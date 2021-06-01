@@ -598,8 +598,8 @@
 												<div class="img_block">
 
 													<a href="{{ route('product.show',$product->slug) }}" class="thumbnail product-thumbnail">
-														<img class="first-image " src="{{ $product->image }}" alt="Fila Locker Room Varsity..." data-full-size-image-url="{{ Storage::url($product->image) }}">
-														<img class="img-responsive second-image animation9" src="{{ $product->image }}" alt="" itemprop="image" />
+														<img class="first-image " src="{{ Storage::url($product->image) }}" alt="Fila Locker Room Varsity..." data-full-size-image-url="{{ Storage::url($product->image) }}">
+														<img class="img-responsive second-image animation9" src="{{ Storage::url($product->image) }}" alt="" itemprop="image" />
 
 													</a>
 

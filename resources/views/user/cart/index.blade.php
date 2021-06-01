@@ -219,11 +219,11 @@
 											<div class="col-md-5 col-lg-3 col-xl-3">
 												<div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
 													<img class="img-fluid w-100"
-														src="{{ $product->model->image}}" alt="Sample">
+														src="{{ Storage::url($product->model->image) }}" alt="Sample">
 													<a href="#!">
 														<div class="mask waves-effect waves-light">
 														<img class="img-fluid w-100"
-															src="{{ $product->model->image}}">
+															src="{{ Storage::url($product->model->image) }}">
 														<div class="mask rgba-black-slight waves-effect waves-light"></div>
 														</div>
 													</a>

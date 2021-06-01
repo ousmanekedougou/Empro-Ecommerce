@@ -118,19 +118,19 @@
                                             <h5 class="font-size-15">Color :</h5>
                                             <a href="#" class="active">
                                                 <div class="product-color-item border rounded">
-                                                    <img src="{{asset('admin/assets/images/product/img-7.png')}}" alt="" class="avatar-md">
+                                                    <img src="{{ Storage::url($product->image) }}" alt="" class="avatar-md">
                                                 </div>
                                                 <p>Black</p>
                                             </a>
                                             <a href="#">
                                                 <div class="product-color-item border rounded">
-                                                    <img src="{{asset('admin/assets/images/product/img-7.png')}}" alt="" class="avatar-md">
+                                                    <img src="{{ Storage::url($product->image) }}" alt="" class="avatar-md">
                                                 </div>
                                                 <p>Blue</p>
                                             </a>
                                             <a href="#">
                                                 <div class="product-color-item border rounded">
-                                                    <img src="{{asset('admin/assets/images/product/img-7.png')}}" alt="" class="avatar-md">
+                                                    <img src="{{ Storage::url($product->image) }}" alt="" class="avatar-md">
                                                 </div>
                                                 <p>Gray</p>
                                             </a>

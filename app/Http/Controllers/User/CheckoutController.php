@@ -26,6 +26,7 @@ class CheckoutController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function index()
     {
        if (Cart::count() <= 0) {

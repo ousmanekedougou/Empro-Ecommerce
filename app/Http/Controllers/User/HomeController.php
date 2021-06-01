@@ -20,6 +20,7 @@ class HomeController extends Controller
                 $hotdeals[] = [
                     $products[$i],
                     $products[++$i]
+                    //  $products[$i + 1] != null ?  $products[++$i] :  null
                 ];
             }
         $populars = [];
