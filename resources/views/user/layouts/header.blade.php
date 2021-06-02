@@ -29,7 +29,7 @@
 						<div id="_desktop_static">
 							<div class="static-nav">Bienvenue dans empro-commerce</div>
 						</div>
-						<div id="_desktop_language_selector">
+						<!-- <div id="_desktop_language_selector">
 							<div class="language-selector-wrapper selector-block hidden-md-down">
 								<span id="language-selector-label" class=" selector-label hidden-lg-down">Language
 									:</span>
@@ -74,8 +74,8 @@
 									</ul>
 								</div>
 							</div>
-						</div>
-						<div id="_desktop_currency_selector">
+						</div> -->
+						<!-- <div id="_desktop_currency_selector">
 							<div class="currency-selector-wrapper selector-block hidden-md-down">
 								<span id="currency-selector-label" class=" selector-label hidden-lg-down">Currency
 									:</span>
@@ -120,13 +120,13 @@
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div id="_desktop_user_info">
 							<div class="user-info-block selector-block">
 								<div class="currency-selector localiz_block dropdown js-dropdown">
 									<button data-target="#" data-toggle="dropdown" class=" btn-unstyle hidden-md-down">
 										@guest
-										<span class="expand-more">Setting</span>
+										<span class="expand-more">Réglage</span>
 										@else
 										<span class="expand-more">{{ Auth::user()->name }}</span>
 										@endguest
@@ -136,35 +136,34 @@
 										<i class="ion-ios-contact"></i>
 									</button>
 									<ul class="dropdown-menu">
-										<li>
+										<!-- <li>
 											<a href="" rel="nofollow" class="dropdown-item">My account</a>
 										</li>
 										<li>
-										<li>
 											<a href="" class="dropdown-item">Checkout</a>
-										</li>
+										</li> -->
 										<li>
-										@guest
-											<a href="{{ route('client.login') }}" title="Log in to your customer account"
-												rel="nofollow" class="dropdown-item">
-												<span>Se Connecter</span>
-											</a>
-												<a href="{{ route('client.register') }}" title="Log in to your customer account"
-												rel="nofollow" class="dropdown-item">
-												<span>S'inscrire</span>
-											</a>
-										@else
-											<a href="#" title="Log in to your customer account"
-												rel="nofollow" class="dropdown-item"
-												onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"
-												>
-												<span>Se Deconnecter</span>
-											</a>
-											<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-												@csrf
-											</form>
-										@endguest
+											@guest
+												<a href="{{ route('client.login') }}" title="Log in to your customer account"
+													rel="nofollow" class="dropdown-item">
+													<span>Se Connecter</span>
+												</a>
+													<a href="{{ route('client.register') }}" title="Log in to your customer account"
+													rel="nofollow" class="dropdown-item">
+													<span>S'inscrire</span>
+												</a>
+											@else
+												<a href="#" title="Log in to your customer account"
+													rel="nofollow" class="dropdown-item"
+													onclick="event.preventDefault();
+														document.getElementById('logout-form').submit();"
+													>
+													<span>Se Deconnecter</span>
+												</a>
+												<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+													@csrf
+												</form>
+											@endguest
 										</li>
 									</ul>
 								</div>
@@ -236,23 +235,40 @@
 
 											<a href="/">
 
-												<span>Home</span>
+												<span>Acceuil</span>
+											</a>
+										</li>
+
+
+										<li class=" menu-item menu-item11   ">
+
+											<a href="">
+
+												<span>À propos</span>
 											</a>
 										</li>
 
 										<li class=" menu-item menu-item7   ">
 
-											<a href="">
+											<a href="{{ route('product.index') }}">
 
-												<span>Delivery</span>
+												<span>Produits</span>
 											</a>
 										</li>
+
+										<!-- <li class=" menu-item menu-item7   ">
+
+											<a href="">
+
+												<span>Livraison</span>
+											</a>
+										</li> -->
 
 										<li class=" menu-item menu-item8   ">
 
 											<a href="">
 
-												<span>Legal Notice</span>
+												<span>Mention légale</span>
 											</a>
 										</li>
 
@@ -260,7 +276,7 @@
 
 											<a href="">
 
-												<span>Secure payment</span>
+												<span>Paiement sécurisé</span>
 											</a>
 										</li>
 
@@ -268,17 +284,10 @@
 
 											<a href="">
 
-												<span>Contact us</span>
+												<span>Contactez-nous</span>
 											</a>
 										</li>
 
-										<li class=" menu-item menu-item11   ">
-
-											<a href="">
-
-												<span>About us</span>
-											</a>
-										</li>
 									</ul>
 
 								</div>

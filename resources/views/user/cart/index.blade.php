@@ -338,7 +338,7 @@
 										<div class="col-lg-12">
 											<div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Detail de la commande </div>
 											<div class="p-4">
-												<p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
+												<p class="font-italic mb-4">Les frais d'expédition et les frais supplémentaires sont calculés en fonction des valeurs que vous avez saisies.</p>
 												<ul class="list-unstyled mb-4">
 													<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Sous-total </strong><strong>{{ getPrice(Cart::subtotal()) }}</strong></li>
 													<!-- <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>$10.00</strong></li> -->
@@ -353,17 +353,17 @@
 										<div class="col-lg-12">
 											<div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
 											<div class="p-4">
-												<p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+												<p class="font-italic mb-4">Si vous avez un code promo, veuillez le saisir dans la case ci-dessous</p>
 												<div class="input-group mb-4 border rounded-pill p-2">
 													<input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
 													<div class="input-group-append border-0">
-														<button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+														<button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Appliquer Coupon</button>
 													</div>
 												</div>
 											</div>
-											<div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
+											<div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions pour le vendeur</div>
 											<div class="p-4">
-												<p class="font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
+												<p class="font-italic mb-4">Si vous avez des informations pour le vendeur, vous pouvez les laisser dans la case ci-dessous</p>
 												<textarea name="" cols="30" rows="2" class="form-control"></textarea>
 											</div>
 											<a href="{{ route('checkout.index') }}" class="btn btn-success rounded-pill py-2 btn-block">Passer a la caisse</a>
