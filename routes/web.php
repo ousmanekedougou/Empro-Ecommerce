@@ -37,6 +37,7 @@ Route::resource('/checkout', App\Http\Controllers\User\CheckoutController::class
 
 
 
+
 Auth::routes();
 
 

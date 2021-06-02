@@ -267,7 +267,7 @@
 															class="fas fa-trash-alt mr-1"></i> Retirer </a>
 															
 														<a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
-															class="fas fa-heart mr-1"></i> Move to wish list </a>
+															class="fas fa-heart mr-1"></i> Ajouter aux favoris </a>
 														</div>
 														<form id="delete-form-{{$product->rowId}}" action="{{ route('panier.destroy',$product->rowId) }}"  method="post">
 															@csrf
@@ -366,7 +366,23 @@
 												<p class="font-italic mb-4">Si vous avez des informations pour le vendeur, vous pouvez les laisser dans la case ci-dessous</p>
 												<textarea name="" cols="30" rows="2" class="form-control"></textarea>
 											</div>
-											<a href="{{ route('checkout.index') }}" class="btn btn-success rounded-pill py-2 btn-block">Passer a la caisse</a>
+											<div class="row">
+												<div class="col-lg-6">
+													<a href="{{ route('checkout.index') }}" class="btn btn-success rounded-pill py-2 btn-block">Passer a la caisse</a>
+												</div>
+												<div class="col-lg-6">
+													<a href="#" 
+													onclick=" if(confirm('Etes Vous sure de payer a la livraison ?')){  event.preventDefault();document.getElementById('livraison-form').submit();
+								
+															}else{event.preventDefault();} "
+													class="btn btn-primary rounded-pill py-2 btn-block">Payer a la livraison</a>
+													<form id="livraison-form" action="{{ route('checkout.update',1) }}"  method="post">
+															@csrf
+															@method('PUT')
+													</form>
+												</div>
+											</div>
+											
 										</div>
 									</div>
 								</div>

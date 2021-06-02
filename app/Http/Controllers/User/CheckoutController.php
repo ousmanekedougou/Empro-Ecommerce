@@ -67,7 +67,7 @@ class CheckoutController extends Controller
              return response()->json(['success' => false], 400);
         }
         $data = $request->json()->all();
-
+        define('STATUS',1);
         $order = new Order();
         $order->payment_intent_id = $data['paymentIntent']['id'];
         $order->amount = $data['paymentIntent']['amount'];
@@ -90,6 +90,7 @@ class CheckoutController extends Controller
         $order->products = serialize($products);
 
         $order->user_id = Auth::user()->id;
+        $order->status = STATUS;
 
 
         $order->save();
@@ -102,6 +103,11 @@ class CheckoutController extends Controller
         }else{
              return response()->json(['error' => 'Payment Intent Not succeeded']);
         }
+
+    }
+
+    public function livraison(Request $request){
+     
 
     }
 
@@ -136,7 +142,27 @@ class CheckoutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+           define('LIVRAISON',2);
+        $order = new Order();
+        $products = [];
+        $i = 0;
+        foreach (Cart::content() as $product) {
+            $products['product_' . $i ][] = $product->model->image;
+            $products['product_' . $i ][] = $product->model->title;
+            $products['product_' . $i ][] = $product->model->subtitle;
+            $products['product_' . $i ][] = $product->qty;
+            $products['product_' . $i ][] = $product->model->price;
+            $i++;
+        }
+
+        $order->products = serialize($products);
+        $order->user_id = Auth::user()->id;
+        $order->status = LIVRAISON;
+        $order->save();
+
+        Cart::destroy();
+
+        return redirect()->route('client.home');
     }
 
     /**
@@ -147,7 +173,8 @@ class CheckoutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::where('id',$id)->where('user_id',Auth::user()->id)->delete();
+        return back();
     }
 
     private function checkIfNotAvailable(){

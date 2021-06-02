@@ -15,9 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('payment_intent_id')->unique();
-            $table->integer('amount');
-            $table->datetime('payment_created_at');
+            $table->string('payment_intent_id')->unique()->nullable();
+            $table->integer('amount')->nullable();
+            $table->datetime('payment_created_at')->nullable();
             $table->text('products');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

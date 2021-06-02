@@ -149,18 +149,26 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group row">
-                                                        <div class="col-md-12">
-                                                            <footer class="form-footer text-sm-center clearfix" style="display: flex;">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <footer class="form-footer text-sm-center clearfix">
 
-                                                                <button id="submit-login" class="btn btn-success btn-block" data-link-action="sign-in"
-                                                                    type="submit" class="form-control-submit" style="margin: 9px 11px 0;height:auto;border-radius:5px;">
-                                                                    S'inscrire
-                                                                </button>
-                                                                 <button class="btn btn-primary btn-block" data-link-action="sign-in"
-                                                                    type="reset" class="form-control-submit">
-                                                                    Reinitialiser
-                                                                </button>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <button id="submit-login" class="btn btn-success btn-block" data-link-action="sign-in"
+                                                                            type="submit" class="form-control-submit">
+                                                                            S'inscrire
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <button class="btn btn-info btn-block" data-link-action="sign-in"
+                                                                            type="reset" class="form-control-reset">
+                                                                            Reinitialiser
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                 
 
                                                             </footer>
                                                         </div>
