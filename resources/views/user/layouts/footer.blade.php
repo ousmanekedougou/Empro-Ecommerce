@@ -13,11 +13,10 @@
 										<a href="#"><img src="{{asset('user/img/cms/logo_footer.png')}}" alt=""></a>
 									</div>
 									<div class="desc_info">
-										<p class="txt_info">We are a team of designers and developers that create high
-											quality Magento, Prestashop, Opencart.</p>
+										<p class="txt_info">Nous sommes une équipe de concepteurs et de développeurs qui créent Magento, Prestashop, Opencart de haute qualité.</p>
 										<div class="need_help">
-											<p>NEED HELP?</p>
-											<p class="phone">(+800) 345 678, (+800) 123 456</p>
+											<p>BESOIN D'AIDE?</p>
+											<p class="phone">(+221) 77 345 67 38 , (+221) 123 45 46</p>
 										</div>
 									</div>
 								</div>
@@ -89,7 +88,7 @@
 								</ul>
 							</div>
 							<div class="col-md-2 links footer_block">
-								<h3 class=" hidden-sm-down">Custom Links</h3>
+								<h3 class=" hidden-sm-down">Liens Personnalisés</h3>
 							
 								<ul  class=" footer_list">
 
@@ -137,7 +136,7 @@
 								</ul>
 							</div>
 							<div class="col-md-4 links footer_block">
-								<h3 class=" hidden-sm-down">Newsletter</h3>
+								<h3 class=" hidden-sm-down">Bulletin</h3>
 							
 								<div  class=" footer_list">
 									<div class="img_app">
@@ -145,8 +144,7 @@
 										<a href="#"><img src="../img/cms/google_play.png" alt=""></a>
 									</div>
 									<div class="ft_newsletter col-footer">
-										<p>You may unsubscribe at any moment. For that purpose, please find our contact
-											info in the legal notice.</p>
+										<p>Vous pouvez vous désinscrire à tout moment. Pour cela, veuillez trouver nos coordonnées dans les mentions légales.</p>
 										<div class="col col_form">
 											<form action="http://demo.posthemes.com/pos_ecolife_marketplace/en/#footer"
 												method="post">
