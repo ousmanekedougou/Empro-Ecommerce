@@ -50,7 +50,7 @@ class CheckoutController extends Controller
      */
     public function create()
     {
-        return Session::has('success') ? view('user.checkout.redirect') : redirect()->route('product.index')
+        return Session::has('success') ? view('user.checkout.redirect') : back()
             ->with('error' , 'Votre commande n\'a pas ete tarite ');
     }
 

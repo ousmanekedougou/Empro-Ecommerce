@@ -80,7 +80,7 @@
                                                                 <label class="form-check-label" for="orderidcheck01"></label>
                                                             </div>
                                                         </td>
-                                                        <td><a href="javascript: void(0);" class="text-body fw-bold"> <!--#SK2540 --> {{ ++$i }} </a> </td>
+                                                        <td><a href="javascript: void(0);" class="text-body fw-bold">  {{ ++$i }} </a> </td>
                                                         <td> <img style="width:100%;height:auto;" src="{{ Storage::url($category->image) }}" alt="" class="img-fluid mx-auto d-block"></td>
                                                         <td>{{$category->name}}</td>
                                                         <td>
@@ -262,3 +262,4 @@
 @section('footersection')
 
 @endsection
+
