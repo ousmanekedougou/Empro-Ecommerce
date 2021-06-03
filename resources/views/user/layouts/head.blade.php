@@ -6,7 +6,7 @@
 
 
 
-	<title>EMPRO-Ecommerce</title>
+	<title>B-SHOP</title>
 	<meta name="description" content="Shop powered by PrestaShop">
 	<meta name="keywords" content="">
 	@section('extra-meta')
