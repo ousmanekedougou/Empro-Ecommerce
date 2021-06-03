@@ -29,8 +29,8 @@
 
 
 
-							<header class="page-header">
-								<h1>
+							<header class="page-header" >
+								<h1 style="text-align: center;">
 									Connectez-vous à votre compte
 								</h1>
 							</header>
@@ -38,13 +38,13 @@
 								<section class="login-form">
 									<form id="login-form" action="{{route('login')}}" method="post">
 										@csrf
-										<section>
-											<input type="hidden" name="back" value="my-account">
+										<div class="row">
+											<div class="col-md-4"></div>
+											<div class="col-md-4">
+												<section>
 											<div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
+												<div class="col-md-12">
 													Email
-												</label>
-												<div class="col-md-6">
 													  <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" name="email" type="email"  autocomplete="email">
 														@error('email')
 															<div class="invalid-feedback" role="alert">
@@ -52,16 +52,11 @@
 															</div>
 														@enderror
 												</div>
-
-												<div class="col-md-3 form-control-comment">
-												</div>
 											</div>
 
 											<div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
+												<div class="col-md-12">
 													Password
-												</label>
-												<div class="col-md-6">
 													<div class="input-group js-parent-focus">
 													     <input class="form-control js-child-focus js-visible-password @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password"
 															name="password" type="password" value="" pattern=".{5,}" >
@@ -80,27 +75,30 @@
 														</div>
 													@enderror
 												</div>
-
-												<div class="col-md-3 form-control-comment">
-												</div>
 											</div>
 
 											<div class="forgot-password">
 												<a href="password-recovery.html" rel="nofollow">
-													Forgot your password?
+													Mot de passe oublié?
 												</a>
 											</div>
+
+											<footer class="form-footer text-sm-center clearfix">
+												<input type="hidden" name="submitLogin" value="1">
+
+												<button id="submit-login" class="btn btn-primary" data-link-action="sign-in"
+													type="submit" class="form-control-submit">
+													Se Connecter
+												</button>
+
+											</footer>
 										</section>
+											</div>
+											<div class="col-md-4"></div>
+										</div>
 										
-										<footer class="form-footer text-sm-center clearfix">
-											<input type="hidden" name="submitLogin" value="1">
-
-											<button id="submit-login" class="btn btn-primary" data-link-action="sign-in"
-												type="submit" class="form-control-submit">
-												Se Connecter
-											</button>
-
-										</footer>
+										
+									
 
 
 									</form>
@@ -113,7 +111,7 @@
 
 								<div class="no-account">
 									<a href="loginca5f.html?create_account=1" data-link-action="display-register-form">
-										No account? Create one here
+										Pas de compte? Créez-en un ici
 									</a>
 								</div>
 

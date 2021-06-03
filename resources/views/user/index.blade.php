@@ -19,11 +19,11 @@
 											src="{{asset('user/modules/posslideshows/images/sample-1.jpg')}}" alt="" /></div>
 									<div id="pos-slideshow-home" class="slides">
 
-										<a href="/" title="slide show1"><img
+										<a href="{{ route('product.index') }}" title="slide show1"><img
 												style="display:none" src="{{asset('user/modules/posslideshows/images/sample-1.jpg')}}"
 												data-thumb="{{asset('user/modules/posslideshows/images/sample-1.jpg')}}"
 												alt="" title="#htmlcaption1" /> </a>
-										<a href="/" title="slide show2"><img
+										<a href="{{ route('product.index') }}" title="slide show2"><img
 												style="display:none" src="{{asset('user/modules/posslideshows/images/sample-2.jpg')}}"
 												data-thumb="{{asset('user/modules/posslideshows/images/sample-2.jpg')}}"
 												alt="" title="#htmlcaption2" /> </a>
@@ -61,10 +61,10 @@
 
 
 														<p data-animation="animated fadeInUp "
-															class="transition_slide_3">BConstruire pour un esprit pionnier</p>
+															class="transition_slide_3">Construire pour un esprit pionnier</p>
 
 
-														<a href="http://www.posthemes.com/"
+														<a href="{{ route('product.index') }}"
 															data-animation="animated zoomIn"
 															class="readmore transition_slide_4">Achetez maintenant</a>
 
@@ -102,17 +102,16 @@
 
 
 														<h3 data-animation="animated fadeInLeft "
-															class="transition_slide_2">True Wireless Earbuds</h3>
+															class="transition_slide_2">Véritables écouteurs sans fil</h3>
 
 
 														<p data-animation="animated fadeInDown "
-															class="transition_slide_3">HD Sound Quality. Comfortable
-															Wearing Balanced</p>
+															class="transition_slide_3">Qualité sonore HD. À l'aise Porter équilibré</p>
 
 
-														<a href="http://www.posthemes.com/"
+														<a href="{{ route('product.index') }}"
 															data-animation="animated zoomIn"
-															class="readmore transition_slide_4">Shop Now</a>
+															class="readmore transition_slide_4">Achetez maintenant</a>
 
 													</div>
 												</div>

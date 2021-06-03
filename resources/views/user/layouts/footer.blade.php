@@ -10,7 +10,7 @@
 							<div class="col-md-4 links footer_block">
 								<div class="footer_about_us">
 									<div class="logo_footer">
-										<a href="#"><img src="{{asset('user/img/cms/logo_footer.png')}}" alt=""></a>
+										<a href="#"><img src="{{asset('user/img/cms/B-shop2.png')}}" alt=""></a>
 									</div>
 									<div class="desc_info">
 										<p class="txt_info">Nous sommes une équipe de concepteurs et de développeurs qui créent Magento, Prestashop, Opencart de haute qualité.</p>
@@ -148,7 +148,7 @@
 										<div class="col col_form">
 											<form action="http://demo.posthemes.com/pos_ecolife_marketplace/en/#footer"
 												method="post">
-												<input class="btn btn-danger " name="submitNewsletter" type="submit" value="Sign up">
+												<input class="btn btn-danger " name="submitNewsletter" type="submit" value="S'inscrire">
 
 												<div class="input-wrapper">
 													<input name="email" type="email" value=""

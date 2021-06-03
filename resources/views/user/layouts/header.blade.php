@@ -221,7 +221,7 @@
 					<div class="row">
 						<div class="col col-left col col-md-3 col-xl-2" id="_desktop_logo">
 							<a href="/">
-								<img class="logo img-responsive" src="{{asset('user/img/ecolife-marketplace1-logo-16055143891.jpg')}}"
+								<img class="logo img-responsive" src="{{asset('user/img/B-shop2.png')}}"
 									alt="Ecolife  Responsive Prestashop Theme">
 							</a>
 

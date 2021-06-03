@@ -39,7 +39,7 @@
 
 
 							<header class="page-header">
-								<h1>
+								<h1 style="text-align: center;">
 									Creer votre compte client
 								</h1>
 							</header>
@@ -49,8 +49,8 @@
 
 							<section id="content" class="page-content card card-block">
                                 <div class="row">
-                                    <div class="col-md-5"></div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
                                         <section class="login-form">
                                             <form id="login-form" action="{{route('client.store')}}" method="post">
                                                 @csrf
@@ -186,6 +186,7 @@
                                             </form>
                                         </section>
                                     </div>
+                                    <div class="col-2"></div>
                                 </div>
 								
 

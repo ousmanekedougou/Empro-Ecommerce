@@ -5,7 +5,7 @@
     </label>
     <input type="hidden" name="controller" value="search">
     <div class="pos_search form-group">
-        <select class="bootstrap-select" name="poscats">
+        <!-- <select class="bootstrap-select" name="poscats">
             <option value="0">All categories</option>
             <option value="12">
                 Fashion
@@ -772,10 +772,10 @@
             <option value="266">
                 - - - - Stove Top Kettles
             </option>
-        </select>
+        </select> -->
 
     </div>
-    <input type="text" name="q" value="{{ request()->q ?? '' }}" placeholder="Enter your search key ... " id="pos_query_top" class="search_query form-control ac_input">
+    <input type="text" name="q" value="{{ request()->q ?? '' }}" placeholder="Entrez votre clé de recherche ... " id="pos_query_top" class="search_query form-control ac_input">
     <button type="submit" class="btn btn-danger search_submit">
         <i class="ion-ios-search-strong"></i>
     </button>
