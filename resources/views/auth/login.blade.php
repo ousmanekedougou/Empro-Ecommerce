@@ -121,7 +121,7 @@
                                         </div>
 
                                         <div class="mt-4 text-center">
-                                            <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock me-1"></i> Mot de passe oublier ?</a>
+                                            <a href="" class="text-muted"><i class="mdi mdi-lock me-1"></i> Mot de passe oublier ?</a>
                                         </div>
                                     </form>
                                 </div>
@@ -132,7 +132,7 @@
                             
                             <div>
                                 <p>Vous n'avez pas de compte? <a href="{{ route('client.register') }}" class="fw-medium text-primary"> Creer votre compte </a> </p>
-                                <p>© <script>document.write(new Date().getFullYear())</script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                <p>© <script>document.write(new Date().getFullYear())</script> B-SHOP. Develope <i class="mdi mdi-heart text-danger"></i> par EMPRO</p>
                             </div>
                         </div>
 

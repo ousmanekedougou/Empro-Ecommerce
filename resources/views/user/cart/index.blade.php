@@ -422,7 +422,7 @@
 										</div>
 										<div class="col-lg-8" style="padding: 60px 0;">
 											<p class="text-center" style="font-size: 1.3em; font-weight:900;">
-												Vous n'avez commander auccun produit
+												Votre Panier est vide
 											</p>
 											<p class="text-center">
 												<a class="btn btn-primary" href="{{ route('product.index') }}">Commander ici</a>
