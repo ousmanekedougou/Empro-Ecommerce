@@ -110,7 +110,7 @@
 
 
 								<div class="no-account">
-									<a href="{{ route('client.login') }}" >
+									<a href="{{ route('client.register') }}" >
 										Pas de compte? Créez-en un ici
 									</a>
 								</div>
