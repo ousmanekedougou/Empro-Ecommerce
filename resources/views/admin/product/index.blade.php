@@ -137,7 +137,7 @@
                     <div class="row mb-3">
                         <div class="col-xl-4 col-sm-6">
                             <div class="mt-2">
-                                <h5>Clothes</h5>
+                                <h5>Produits</h5>
                             </div>
                         </div>
                         <div class="col-lg-8 col-sm-6">

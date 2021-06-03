@@ -110,7 +110,7 @@
 
 
 								<div class="no-account">
-									<a href="loginca5f.html?create_account=1" data-link-action="display-register-form">
+									<a href="{{ route('client.login') }}" data-link-action="display-register-form">
 										Pas de compte? Créez-en un ici
 									</a>
 								</div>
