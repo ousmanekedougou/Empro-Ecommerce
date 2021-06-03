@@ -24,22 +24,26 @@ class CheckoutController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
     
     public function index()
     {
-       if (Cart::count() <= 0) {
+        if (Cart::count() <= 0) {
            return redirect()->route('product.index');
-       }else{
-        Stripe::setApiKey('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-        $intent = PaymentIntent::create([
-            'amount' => round(Cart::total()),
-            'currency' => 'eur',
-        ]);
-        $clientSecret = Arr::get($intent,'client_secret');
-        return view('user.checkout.index',compact('clientSecret'));
-       }
+        }else{
+            Stripe::setApiKey('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+            $intent = PaymentIntent::create([
+                'amount' => round(Cart::total()),
+                'currency' => 'eur',
+            ]);
+            $clientSecret = Arr::get($intent,'client_secret');
+            if(Auth::check()){
+                return view('user.checkout.index',compact('clientSecret'));
+            }else{
+                return redirect()->route('client.login');
+            }
+        }
      
     }
 
@@ -50,7 +54,7 @@ class CheckoutController extends Controller
      */
     public function create()
     {
-        return Session::has('success') ? view('user.checkout.redirect') : back()
+        return Session::has('success') ? redirect()->route('client.home')->with('success','Votre commande a traite avec success') : back()
             ->with('error' , 'Votre commande n\'a pas ete tarite ');
     }
 
@@ -142,7 +146,7 @@ class CheckoutController extends Controller
      */
     public function update(Request $request, $id)
     {
-           define('LIVRAISON',2);
+        define('LIVRAISON',2);
         $order = new Order();
         $products = [];
         $i = 0;

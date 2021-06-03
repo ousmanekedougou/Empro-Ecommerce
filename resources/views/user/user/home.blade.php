@@ -212,18 +212,18 @@
 										</div>
 									<hr class="mb-4">
 									@endforeach
-								
-									<p class="text-primary mb-0">
-										<a href="#!" onclick=" if(confirm('Etes Vous sure d\'anuller la commande ?')){  event.preventDefault();document.getElementById('delete-form-{{$order->id}}').submit();
-								
-										}else{event.preventDefault();} " type="button" class="card-link-secondary small text-uppercase mr-3"><i
-										class="fas fa-trash-alt mr-1"></i> Annuler la commande </a>
-										<form id="delete-form-{{$order->id}}" action="{{ route('checkout.destroy',$order->id) }}"  method="post">
-											@csrf
-											@method('DELETE')
-										</form>
-									</p>
-
+										@if($order->amount <= 0)
+											<p class="text-primary mb-0">
+												<a href="#!" onclick=" if(confirm('Etes Vous sure d\'anuller la commande ?')){  event.preventDefault();document.getElementById('delete-form-{{$order->id}}').submit();
+										
+												}else{event.preventDefault();} " type="button" class="card-link-secondary small text-uppercase mr-3"><i
+												class="fas fa-trash-alt mr-1"></i> Annuler la commande </a>
+												<form id="delete-form-{{$order->id}}" action="{{ route('checkout.destroy',$order->id) }}"  method="post">
+													@csrf
+													@method('DELETE')
+												</form>
+											</p>
+										@endif
 								</div>
 							</div>
 							<hr class="mb-4">

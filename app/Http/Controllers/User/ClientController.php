@@ -70,7 +70,9 @@ class ClientController extends Controller
     }
 
     public function home(){
-        $orders = Order::where('user_id',Auth::user()->id)->get();
+        $orders = Order::where('user_id',Auth::user()->id)
+        ->orderBy('created_at','DESC')
+        ->get();
         return view('user.user.home',compact('orders'));
     }
 
