@@ -110,7 +110,7 @@
 
 
 								<div class="no-account">
-									<a href="{{ route('client.login') }}" data-link-action="display-register-form">
+									<a href="{{ route('client.login') }}" >
 										Pas de compte? Créez-en un ici
 									</a>
 								</div>
