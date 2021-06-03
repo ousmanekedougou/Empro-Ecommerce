@@ -49,7 +49,7 @@
 													<div class="info">
 
 														<h5 data-animation="animated fadeInDown "
-															class="transition_slide_0">Prix 300.000 f</h5>
+															class="transition_slide_0">Prix 5.000 f</h5>
 
 
 														<h2 data-animation="animated fadeInLeft "
