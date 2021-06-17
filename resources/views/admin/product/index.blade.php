@@ -25,6 +25,7 @@
             <!-- end page title -->
 
             <div class="row">
+             {{--  
                 <div class="col-lg-3">
                     <div class="card">
                         <div class="card-body">
@@ -46,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="mt-4 pt-3">
+                             <div class="mt-4 pt-3">
                                 <h5 class="font-size-14 mb-3">Price</h5>
                                 <input type="text" id="pricerange">
                             </div> -->
@@ -132,7 +133,8 @@
                     </div>
                     
                 </div>
-                <div class="col-lg-9">
+                --}} 
+                <div class="col-lg-12">
                         
                     <div class="row mb-3">
                         <div class="col-xl-4 col-sm-6">
@@ -164,7 +166,7 @@
                     </div>
                     <div class="row">
                     @foreach($products as $product)
-                        <div class="col-xl-4 col-sm-6">
+                        <div class="col-xl-3 col-sm-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="product-img position-relative">
@@ -192,132 +194,7 @@
                             </div>
                         </div>
                     @endforeach
-                        <!-- <div class="col-xl-4 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="product-img position-relative">
-                                        <img src="assets/images/product/img-2.png" alt="" class="img-fluid mx-auto d-block">
-                                    </div>
-                                    <div class="mt-4 text-center">
-                                        <h5 class="mb-3 text-truncate"><a href="#" class="text-dark">Light blue T-shirt</a></h5>
-                                        
-                                        <p class="text-muted">
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star"></i>
-                                        </p>
-                                        <h5 class="my-0"><span class="text-muted me-2"><del>$240</del></span> <b>$225</b></h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="product-img position-relative">
-                                        <div class="avatar-sm product-ribbon">
-                                            <span class="avatar-title rounded-circle  bg-primary">
-                                                - 20 %
-                                            </span>
-                                        </div>
-                                        <img src="assets/images/product/img-3.png" alt="" class="img-fluid mx-auto d-block">
-                                    </div>
-                                    <div class="mt-4 text-center">
-                                        <h5 class="mb-3 text-truncate"><a href="#" class="text-dark">Black Color T-shirt</a></h5>
-                                        
-                                        <p class="text-muted">
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star"></i>
-                                        </p>
-                                        <h5 class="my-0"><span class="text-muted me-2"><del>$175</del></span> <b>$152</b></h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="product-img position-relative">
-                                        <img src="assets/images/product/img-4.png" alt="" class="img-fluid mx-auto d-block">
-                                    </div>
-                                    <div class="mt-4 text-center">
-                                        <h5 class="mb-3 text-truncate"><a href="#" class="text-dark">Hoodie (Blue)</a></h5>
-                                        
-                                        <p class="text-muted">
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star"></i>
-                                        </p>
-                                        <h5 class="my-0"><span class="text-muted me-2"><del>$150</del></span> <b>$145</b></h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    
-                                    <div class="product-img position-relative">
-                                        <div class="avatar-sm product-ribbon">
-                                            <span class="avatar-title rounded-circle  bg-primary">
-                                                - 22 %
-                                            </span>
-                                        </div>
-                                        <img src="assets/images/product/img-5.png" alt="" class="img-fluid mx-auto d-block">
-                                    </div>
-                                    <div class="mt-4 text-center">
-                                        <h5 class="mb-3 text-truncate"><a href="#" class="text-dark">Half sleeve T-Shirt</a></h5>
-                                        
-                                        <p class="text-muted">
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star"></i>
-                                        </p>
-                                        <h5 class="my-0"><span class="text-muted me-2"><del>$145</del></span> <b>$138</b></h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="product-img position-relative">
-                                        <div class="avatar-sm product-ribbon">
-                                            <span class="avatar-title rounded-circle bg-primary">
-                                                - 28 %
-                                            </span>
-                                        </div>
-                                        <img src="assets/images/product/img-6.png" alt="" class="img-fluid mx-auto d-block">
-                                    </div>
-                                    <div class="mt-4 text-center">
-                                        <h5 class="mb-3 text-truncate"><a href="#" class="text-dark">Green color T-shirt</a></h5>
-                                        
-                                        <p class="text-muted">
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star"></i>
-                                        </p>
-                                        <h5 class="my-0"><span class="text-muted me-2"><del>$138</del></span> <b>$135</b></h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                      
                     </div>
                     <!-- end row -->
 
@@ -348,6 +225,7 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
             <!-- end row -->

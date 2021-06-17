@@ -7,6 +7,7 @@ use App\Models\User\Category;
 use App\Models\User\SousCategory;
 use App\Models\User\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 class ProductController extends Controller
 {
@@ -19,15 +20,26 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
-        if (request()->sous_categorie) {
-            $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
-                $query->where('slug',request()->sous_categorie);
-            })->orderBy('created_at','DESC')->get();
-        }else{
-            $products = Product::with('sous_categories')->orderBy('created_at','DESC')->get();
+         define('STATUS',1);
+        if (Auth::user()->status == STATUS ) {
+           
+            if (request()->sous_categorie) {
+                $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
+                    $query->where('slug',request()->sous_categorie);
+                })->orderBy('created_at','DESC')->paginate(10);
+            }else{
+                $products = Product::with('sous_categories')->orderBy('created_at','DESC')->paginate(10);
+            }
+        }else {
+             if (request()->sous_categorie) {
+                $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
+                    $query->where('slug',request()->sous_categorie);
+                })->where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+            }else{
+                $products = Product::with('sous_categories')->where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+            }
         }
-        return view('admin.product.index',compact('products'));
+            return view('admin.product.index',compact('products'));
     }
 
     /**
@@ -37,18 +49,26 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categorys = Category::all();
+         define('CREATER',1);
+        if (Auth::user()->status == CREATER) {
+            $categorys = Category::all();
+        }else {
+            $categorys = Category::where('user_id',Auth::user()->id)->get();
+        }
         return view('admin.product.create',compact('categorys'));
-
-        
     }
 
     public function search(){
+        define('SEARCH',1);
         request()->validate([
             'q' => 'required|min:3'
         ]);
         $q = request()->input('q');
-        $products = Product::where('title','like',"%$q%")->orWhere('description','like',"%$q%")->paginate(6);
+        if (Auth::user()->status == SEARCH) {
+            $products = Product::where('title','like',"%$q%")->orWhere('description','like',"%$q%")->paginate(10);
+        }else {
+            $products = Product::where('user_id',Auth::user()->id)->where('title','like',"%$q%")->orWhere('description','like',"%$q%")->paginate(10);
+        }
         return view('admin.product.index',compact('products'));
     }
 
@@ -67,6 +87,8 @@ class ProductController extends Controller
             'prix' => 'required|numeric',
             'image' => 'required|image',
             'description' => 'required|string',
+            'owner_shop_name' => 'required|string',
+            'owner_adresse' => 'required|string',
         ]);
 
         $add_product = new Product();
@@ -82,24 +104,16 @@ class ProductController extends Controller
             $slug = $request->slug;
         }
 
-        // $imgData[] = '';
-        // dd($request->imageFile);
-        // if ($request->hasfile('imageFile')) {
-        //     foreach ($request->file('imageFile') as $file) {
-        //         $name = $file->getClientOriginalName();
-        //         $file->move(public_path().'/Product/imageFiles/'.$name);
-        //         $imgData[] = $name;
-        //     }
-        // }
-
         $add_product->title = $request->name;
         $add_product->subtitle = $request->sous_name;
         $add_product->slug = $slug;
         $add_product->price = $request->prix;
         $add_product->image =  $imageName;
-        // $add_product->images = json_encode($imgData);
         $add_product->description = $request->description;
-        $add_product->save();
+        $add_product->owner_shop_name = $request->owner_shop_name;
+        $add_product->owner_adresse = $request->owner_adresse;
+        $add_product->user_id = Auth::user()->id;
+         $add_product->save();
         $add_product->sous_categories()->sync($request->category);
         // $add_product->sous_categories()->attach($request->category);
         Session::flash('success' , 'Le produit a bien ete ajouter');
@@ -114,8 +128,14 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $categorys = Category::all();
-        $product = Product::where('slug',$slug)->firstOrfail();
+        define('SHOWED',1);
+        if (Auth::user()->status == SHOWED) {
+            $categorys = Category::all();
+            $product = Product::where('slug',$slug)->firstOrfail();
+        }else {
+            $categorys = Category::where('user_id',Auth::user()->id)->get();
+            $product = Product::where('slug',$slug)->where('user_id',Auth::user()->id)->firstOrfail();
+        }
         return view('admin.product.show',compact('product','categorys'));
     }
 
@@ -127,8 +147,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categorys = Category::all();
-        $edit_product = Product::where('id',$id)->first();
+        define('EDIDTED',1);
+        if (Auth::user()->status == EDIDTED) {
+            $categorys = Category::all();
+            $edit_product = Product::where('id',$id)->first();
+        }else {
+            $categorys = Category::where('user_id',Auth::user()->id)->get();
+            $edit_product = Product::where('id',$id)->where('user_id',Auth::user()->id)->first();
+        }
         return view('admin.product.edit',compact('edit_product','categorys'));
     }
 

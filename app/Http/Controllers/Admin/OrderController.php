@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User\Order;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
+use DateTime;
 class OrderController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::where('created_at','<=',Carbon::today())->orderBy('created_at','DESC')->get();
         return view('admin.orders.index',compact('orders'));
     }
 
@@ -71,7 +72,18 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        define('STATUS',1);
+        $payment_livraison = Order::where('id',$id)->first();
+        if ($payment_livraison->status != STATUS && $payment_livraison->amount <= 0) {
+            $payment_livraison->amount = $request->amount_livraison;
+            $payment_livraison->status = STATUS;
+            $payment_livraison->payment_created_at = (new DateTime());
+            $payment_livraison->save();
+            return back()->with('success','Votre commande a ete payer');
+        }else
+        {
+            return back()->with('error','Cette commande a ete deja regler');
+        }
     }
 
     /**
@@ -82,6 +94,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::find($id)->delete();
+        return back()->with('success','Votre commande a ete supprimer avec succes');
     }
 }

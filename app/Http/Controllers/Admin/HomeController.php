@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User\Order;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -17,6 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         $admin = Auth::user();
-        return view('admin.home',compact('admin'));
+        $orders = Order::where('created_at','==',Carbon::today())->orderBy('created_at','DESC')->get();
+        return view('admin.home',compact('admin','orders'));
     }
 }

@@ -18,11 +18,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
-        if (Auth::user()->status != 1) {
-           $categorys = Category::where('user_id',Auth::user()->id)->paginate(2);
+         define('STATUS',1);
+        if (Auth::user()->status != STATUS) {
+           $categorys = Category::where('user_id',Auth::user()->id)->paginate(8);
         }else{
-            $categorys = Category::paginate(2);
+            $categorys = Category::paginate(8);
         }
         return view('admin.category.index',compact('categorys'));
     }

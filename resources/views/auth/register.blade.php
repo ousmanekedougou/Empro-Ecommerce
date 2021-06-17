@@ -1,312 +1,194 @@
 @extends('user.layouts.app',['title' => 'acceuil'])
+    @section('extra-meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @section('body')
-<body itemscope itemtype="http://schema.org/WebPage" id="authentication"
-	class="lang-en country-us currency-usd layout-full-width page-authentication tax-display-disabled page-customer-account">
     @endsection
-    @section('main-content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+    @section('body')
+       <body itemscope itemtype="http://schema.org/WebPage" id="authentication"  class="lang-en country-us currency-usd layout-full-width page-authentication tax-display-disabled page-customer-account">
+    @endsection
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
+   
+@section('main-content')
 
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+@section('extra-script')
+<style>
+    .invalid-feedback{
+        color: red;
+    }
+    .error-indicatif{
+        font-size: 12px;
+    }
+</style>
+ <script src="https://js.stripe.com/v3/"></script>
+@endsection
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <!-- <div id="wrapper">
+<div id="wrapper">
 
 			<div class="container">
 				<div class="row">
+
+
+
 					<div id="content-wrapper" class="col-xs-12">
+
+
+
 						<section id="main">
+
+
+
 							<header class="page-header">
-								<h1>
-									Creer votre compte
+								<h1 style="text-align: center;">
+									Creer votre compte client
 								</h1>
 							</header>
+
+
+
+
 							<section id="content" class="page-content card card-block">
-								<section class="register-form">
-									<p>Already have an account? <a href="login.html">Log in instead!</a></p>
-									<form action="{{ route('register') }}" id="customer-form" class="js-customer-form" method="post">
-                                        @csrf
-										<section>
-											<input type="hidden" name="id_customer" value="">
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label">
-													Civilite
-												</label>
-												<div class="col-md-6 form-control-valign">
-													<label class="radio-inline">
-														<span class="custom-radio">
-															<input name="genre" type="radio" value="1">
-															<span></span>
-														</span>
-														Homme
-													</label>
-													<label class="radio-inline" style="margin-left: 15px;">
-														<span class="custom-radio">
-															<input name="genre" type="radio" value="2">
-															<span></span>
-														</span>
-														Femme
-													</label>
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-
-
-												</div>
-											</div>
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
-													Votre prenom et  nom
-												</label>
-												<div class="col-md-6">
-													    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                                        @error('name')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-												</div>
-											</div>
-											
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
-													Votre adresse email
-												</label>
-												<div class="col-md-6">
-                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                                    @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-
-
-												</div>
-											</div>
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
-													Mot de passe
-												</label>
-												<div class="col-md-6">
-													<div class="input-group js-parent-focus">
-                                                           <input id="password" type="password" pattern=".{5,}" class="form-control js-child-focus js-visible-password @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                                            @error('password')
-                                                                <span class="invalid-feedback" role="alert">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <section class="login-form">
+                                            <form id="login-form" action="{{route('client.store')}}" method="post">
+                                                @csrf
+                                                <section>
+                                                    <div class="form-group row ">
+                                                        <div class="col-md-6">
+                                                            <label> Votre nomm complet </label>
+                                                            <input class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" name="name" type="text"  autocomplete="name">
+                                                            @error('name')
+                                                                <div class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
-                                                                </span>
+                                                                </div>
                                                             @enderror
-														<span class="input-group-btn">
-															<button class="btn" type="button"
-																data-action="show-password" data-text-show="Show"
-																data-text-hide="Hide">
-																Show
-															</button>
-														</span>
-													</div>
-												</div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label> Votre adress Email </label>
+                                                             <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" name="email" type="email"  autocomplete="email">
+                                                            @error('email')
+                                                                <div class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
 
-												<div class="col-md-3 form-control-comment">
+                                                    <div class="form-group row ">
+                                                        <div class="col-md-12">
+                                                        <div class="row d-flex">
+                                                            <div class="col-md-2">
+                                                                <label>Indicatif </label>
+                                                                   <input class="form-control @error('indicatif') is-invalid @enderror" value="{{ old('indicatif') }}" name="indicatif" type="number"  autocomplete="indicatif" placeholder="+221">
+                                                                    @error('indicatif')
+                                                                        <div class="invalid-feedback error-indicatif" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </div>
+                                                                    @enderror
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <label> Votre  numero de telephone </label>
+                                                                <input class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" name="phone" type="number"  autocomplete="phone" placeholder="( Exp : 77 000 00 00 )">
+                                                                    @error('phone')
+                                                                        <div class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </div>
+                                                                    @enderror
+                                                            </div>
+                                                             <div class="col-md-5">
+                                                                 <label> Votre  adresse </label>
+                                                                    <input class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" name="address" type="text"  autocomplete="address" placeholder="">
+                                                                    @error('address')
+                                                                        <div class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </div>
+                                                                    @enderror
+                                                            </div>
+                                                        </div>
+                                                            
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="form-group row ">
+                                                        <div class="col-md-6">
+                                                            <label> Password </label>
+                                                            <div class="input-group js-parent-focus">
+                                                                <input class="form-control js-child-focus js-visible-password @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password"
+                                                                    name="password" type="password" value="" pattern=".{5,}" >
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn" type="button"
+                                                                        data-action="show-password" data-text-show="Afficher"
+                                                                        data-text-hide="Cacher">
+                                                                        Afficher
+                                                                    </button>
+                                                                </span>
+                                                               
+                                                            </div>
+                                                              @error('password')
+                                                                    <div class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
+                                                        </div>
+                                                         <div class="col-md-6">
+                                                            <label> Confirmation Password </label>
+                                                            <div class="input-group js-parent-focus">
+                                                                <input class="form-control js-child-focus js-visible-password @error('password') is-invalid @enderror" value="{{ old('password-confirm') }}"
+                                                                    name="password_confirmation" id="password-confirm" type="password" pattern=".{5,}"
+                                                                    >
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn" type="button"
+                                                                        data-action="show-password" data-text-show="Afficher"
+                                                                        data-text-hide="Cacher">
+                                                                        Afficher
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-												</div>
-											</div>
-                                            <div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
-													Confirmer le mot de passe
-												</label>
-												<div class="col-md-6">
-													<div class="input-group js-parent-focus">
-                                                           <input id="password-confirm" type="password" pattern=".{5,}" class="form-control js-child-focus js-visible-password @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <footer class="form-footer text-sm-center clearfix">
 
-														<span class="input-group-btn">
-															<button class="btn" type="button"
-																data-action="show-password" data-text-show="Show"
-																data-text-hide="Hide">
-																Show
-															</button>
-														</span>
-													</div>
-												</div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <button id="submit-login" class="btn btn-success btn-block" data-link-action="sign-in"
+                                                                            type="submit" class="form-control-submit">
+                                                                            S'inscrire
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <button class="btn btn-info btn-block" data-link-action="sign-in"
+                                                                            type="reset" class="form-control-reset">
+                                                                            Reinitialiser
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                 
 
-												<div class="col-md-3 form-control-comment">
+                                                            </footer>
+                                                        </div>
+                                                    </div>
 
-
-												</div>
-											</div>
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label">
-													Birthdate
-												</label>
-												<div class="col-md-6">
-													<input class="form-control" name="birthday" type="text" value=""
-														placeholder="MM/DD/YYYY">
-													<span class="form-control-comment">
-														(E.g.: 05/31/1970)
-													</span>
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-
-													Optional
-
-												</div>
-											</div>
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label">
-												</label>
-												<div class="col-md-6">
-													<span class="custom-checkbox">
-														<label>
-															<input name="optin" type="checkbox" value="1">
-															<span><i
-																	class="material-icons rtl-no-flip checkbox-checked">&#xE5CA;</i></span>
-															Receive offers from our partners
-														</label>
-													</span>
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-
-
-												</div>
-											</div>
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label">
-												</label>
-												<div class="col-md-6">
-													<span class="custom-checkbox">
-														<label>
-															<input name="newsletter" type="checkbox" value="1">
-															<span><i
-																	class="material-icons rtl-no-flip checkbox-checked">&#xE5CA;</i></span>
-															Sign up for our newsletter<br><em>You may unsubscribe at any
-																moment. For that purpose, please find our contact info
-																in the legal notice.</em>
-														</label>
-													</span>
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-
-
-												</div>
-											</div>
-											<div class="form-group row ">
-												<label class="col-md-3 form-control-label required">
-												</label>
-												<div class="col-md-6">
-													<span class="custom-checkbox">
-														<label>
-															<input name="psgdpr" type="checkbox" value="1" required>
-															<span><i
-																	class="material-icons rtl-no-flip checkbox-checked">&#xE5CA;</i></span>
-															I agree to the terms and conditions and the privacy policy
-														</label>
-													</span>
-												</div>
-
-												<div class="col-md-3 form-control-comment">
-
-
-												</div>
-											</div>
-
-										</section>
-
-										<footer class="form-footer clearfix">
-											<input type="hidden" name="submitCreate" value="1">
-
-											<button class="btn btn-primary form-control-submit float-xs-right"
-												data-link-action="save-customer" type="submit">
-												Save
-											</button>
-
-										</footer>
-
-
-									</form>
-
-
-								</section>
-
+                                                    <!-- <div class="form-group row">
+                                                        <div class="forgot-password col-md-6">
+                                                            <a href="password-recovery.html" rel="nofollow">
+                                                                Forgot your password?
+                                                            </a>
+                                                        </div>
+                                                    </div> -->
+                                                </section>
+                                                
+                                            </form>
+                                        </section>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+								
 
 							</section>
 
@@ -314,6 +196,7 @@
 
 							<footer class="page-footer">
 
+								<!-- Footer content -->
 
 							</footer>
 
@@ -331,5 +214,7 @@
 			</div>
 
 
-		</div> -->
+		</div>
+
+
 @endsection

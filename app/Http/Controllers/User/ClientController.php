@@ -118,6 +118,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::where('id',$id)->where('user_id',Auth::user()->id)->delete();
+        return back();
     }
 }

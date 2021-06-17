@@ -770,7 +770,7 @@
 					<div class="row">
 						<div class="col-left col-xs-12 col-md-6 col-lg-5 col-xl-4">
 							<div class="banner-box">
-								<a href="http://posthemes.com/"><img
+								<a href="{{ route('product.index') }}"><img
 										src="{{asset('user/modules/poslistcateproduct/images/thumb-1.jpg')}}" alt="" /></a>
 							</div>
 						</div>
@@ -951,7 +951,7 @@
 					<div class="row">
 						<div class="col-left col-xs-12 col-md-6 col-lg-5 col-xl-4">
 							<div class="banner-box">
-								<a href="http://posthemes.com/"><img
+								<a href="{{ route('product.index') }}"><img
 										src="{{asset('user/modules/poslistcateproduct/images/thumb-2.jpg')}}" alt="" /></a>
 							</div>
 						</div>
@@ -1131,7 +1131,7 @@
 					<div class="row">
 						<div class="col-left col-xs-12 col-md-6 col-lg-5 col-xl-4">
 							<div class="banner-box">
-								<a href="http://posthemes.com/"><img
+								<a href="{{ route('product.index') }}"><img
 										src="{{asset('user/modules/poslistcateproduct/images/thumb-3.jpg')}}" alt="" /></a>
 							</div>
 						</div>

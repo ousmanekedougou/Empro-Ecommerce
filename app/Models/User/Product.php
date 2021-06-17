@@ -5,6 +5,7 @@ namespace App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\Category;
+use App\Models\User;
 use App\Models\User\SousCategory;
 class Product extends Model
 {
@@ -25,6 +26,10 @@ class Product extends Model
     public function sous_categories()
     {
         return $this->belongsToMany(SousCategory::class,'sous_category_products');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
 

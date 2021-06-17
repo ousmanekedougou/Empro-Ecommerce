@@ -49,7 +49,7 @@
                                             <input id="manufacturername" name="manufacturername" type="text" class="form-control">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="manufacturerbrand">Slug du produit</label>
+                                            <label for="manufacturerbrand">owner_shop_name du produit</label>
                                             <input id="manufacturerbrand" name="manufacturerbrand" type="text" class="form-control">
                                         </div>
                                         <div class="mb-3">
@@ -129,6 +129,15 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="manufacturerbrand">Nom du magasin</label>
+                                             <input id="owner_shop_name" name="owner_shop_name" type="text" class="form-control @error('owner_shop_name') is-invalid @enderror" value="{{ old('owner_shop_name') }}" required autocomplete="owner_shop_name">
+                                            @error('owner_shop_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="col-sm-6">
@@ -161,6 +170,15 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
+                                            <label for="owner_adresse">Adresse du magasin</label>
+                                            <input id="owner_adresse" name="owner_adresse" type="text" class="form-control @error('owner_adresse') is-invalid @enderror" value="{{ old('owner_adresse') }}" required autocomplete="owner_adresse">
+                                            @error('owner_adresse')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="image">Image du produit</label>
                                               <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}" required autocomplete="image">
                                             @error('image')
@@ -171,7 +189,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+
+                                <div class="row">
                                     <div class="mb-3">
                                         <label for="description">Product Description</label>
                                         <textarea name="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}" required autocomplete="description" rows="5"></textarea>

@@ -144,11 +144,11 @@
 										</li> -->
 										<li>
 											@guest
-												<a href="{{ route('client.login') }}" title="Log in to your customer account"
+												<a href="{{ route('login') }}" title="Log in to your customer account"
 													rel="nofollow" class="dropdown-item">
 													<span>Se Connecter</span>
 												</a>
-													<a href="{{ route('client.register') }}" title="Log in to your customer account"
+													<a href="{{ route('register') }}" title="Log in to your customer account"
 													rel="nofollow" class="dropdown-item">
 													<span>S'inscrire</span>
 												</a>

@@ -162,6 +162,7 @@ class CheckoutController extends Controller
         $order->products = serialize($products);
         $order->user_id = Auth::user()->id;
         $order->status = LIVRAISON;
+        $order->amount_livraison = Cart::total();
         $order->save();
 
         Cart::destroy();
@@ -177,8 +178,7 @@ class CheckoutController extends Controller
      */
     public function destroy($id)
     {
-        Order::where('id',$id)->where('user_id',Auth::user()->id)->delete();
-        return back();
+        
     }
 
     private function checkIfNotAvailable(){
