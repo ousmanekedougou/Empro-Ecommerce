@@ -131,6 +131,26 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                         <div class="mb-3">
+                                            <label class="">Choisire le magasin</label>
+                                            <select class="form-select @error('shop') is-invalid @enderror" name="shop" value="{{ old('shop') }}" required autocomplete="shop" >
+                                                <option value="" desabled selected>Choix par defaut</option>
+                                                @foreach($shops as $shop)
+                                                    <option value="{{ $shop->id }}"
+                                                        @if($edit_product->shop_id == $shop->id)
+                                                        selected
+                                                        @else 
+                                                        
+                                                        @endif
+                                                        >{{$shop->owner_shop_name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('shop')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="col-sm-6">
@@ -147,7 +167,7 @@
 
                                                     @endforeach
                                                     
-                                                        value="{{ $category->id }}"> {{ $category->name }} >
+                                                        value="{{ $category->id }}"> {{ $category->name }} 
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -162,6 +182,15 @@
                                             <label for="prix">Prix du produit</label>
                                             <input id="prix" name="prix" type="number" class="form-control @error('prix') is-invalid @enderror" value="{{ old('prix') ?? $edit_product->price }}" required autocomplete="prix">
                                             @error('prix')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="stock">Nombre de stock</label>
+                                            <input id="stock" name="stock" type="number" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') ?? $edit_product->stock }}" required autocomplete="stock">
+                                            @error('stock')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

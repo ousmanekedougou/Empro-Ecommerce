@@ -53,6 +53,7 @@ class ClientController extends Controller
         ]);
 
         define('STATUS',4);
+        define('ISACTIVE',1);
         $add_client = new User();
         $add_client->name = $request->name;
         $add_client->email = $request->email;
@@ -60,6 +61,8 @@ class ClientController extends Controller
         $add_client->address = $request->address;
         $add_client->password = Hash::make($request->password);
         $add_client->status = STATUS;
+        $add_client->isActive = ISACTIVE;
+        $add_client->isAdmin = 0;
         $add_client->save();
         if (Auth::attempt(['email' => $request->email,'password' => $request->password])) {
             if (Cart::total() > 0) {
@@ -70,10 +73,11 @@ class ClientController extends Controller
     }
 
     public function home(){
+        $user = Auth::user();
         $orders = Order::where('user_id',Auth::user()->id)
         ->orderBy('created_at','DESC')
         ->get();
-        return view('user.user.home',compact('orders'));
+        return view('user.user.home',compact('orders','user'));
     }
 
     /**
@@ -107,7 +111,31 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->option == 1) {
+            $this->validate($request,[
+                'name' => 'required|string',
+                'email' => 'required|string|email',
+                'phone' => 'required|numeric',
+                'address' => 'required|string',
+            ]);
+            $update_info_user = User::where('id',$id)->first();
+            $update_info_user->name = $request->name;
+            $update_info_user->email = $request->email;
+            $update_info_user->phone = $request->phone;
+            $update_info_user->address = $request->address;
+            $update_info_user->save();
+            return back()->with('success','Votre profil a ete mise a jour');
+
+        }
+        elseif ($request->option == 2) {
+             $this->validate($request,[
+                'password' => 'required|string|confirmed',
+            ]);
+            $update_password_user = User::where('id',$id)->first();
+            $update_password_user->password = Hash::make($request->password);
+            $update_password_user->save();
+            return back()->with('success','Votre mot de passe a ete mise a jour');
+        }
     }
 
     /**
@@ -120,5 +148,11 @@ class ClientController extends Controller
     {
         Order::where('id',$id)->where('user_id',Auth::user()->id)->delete();
         return back();
+    }
+
+    public function delete_compte($id)
+    {
+        User::find($id)->delete();
+        return redirect()->route('register')->with('success','Votre compte a ete supprimer');
     }
 }

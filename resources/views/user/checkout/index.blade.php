@@ -84,6 +84,20 @@
                                                             <!-- Elements will create input elements here -->
                                                         </div>
 
+                                                        <div class="row">
+                                                            <label for="option" style="margin-right: 10px;"> <input type="radio" name="option" class="@error('option') is-invalid @enderror" value="{{ old('option') ?? 1 }} id
+                                                            option"> Option de livraison </label>
+                                                            <label for="option" style="margin-left: 10px;"> <input type="radio" name="option" class="@error('option') is-invalid @enderror" value="{{ old('option') ?? 2 }} id
+                                                            option"> Souhaite recupere </label>
+                                                            <p>
+                                                                 @error('option')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </p>
+                                                        </div>
+
                                                         <!-- We'll put the error messages in this element -->
                                                         <div id="card-errors" role="alert"></div>
 

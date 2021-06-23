@@ -19,12 +19,14 @@ class CategoryController extends Controller
     public function index()
     {
          define('STATUS',1);
-        if (Auth::user()->status != STATUS) {
-           $categorys = Category::where('user_id',Auth::user()->id)->paginate(8);
-        }else{
+        if (Auth::user()->status == STATUS) {
             $categorys = Category::paginate(8);
+            $category_fathers = CategoryFather::all();
+        }else{
+           $categorys = Category::where('user_id',Auth::user()->id)->paginate(8);
+           $category_fathers = CategoryFather::where('user_id',Auth::user()->id)->get();
         }
-        return view('admin.category.index',compact('categorys'));
+        return view('admin.category.index',compact('categorys','category_fathers'));
     }
 
     /**
@@ -34,11 +36,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
-        if (Auth::user()->status == 1) {
-           $categorys = CategoryFather::where('user_id',Auth::user()->id)->get();
-        }else{
+        define('CREATER',1);
+        if (Auth::user()->status == CREATER) {
             $categorys = CategoryFather::all();
+        }else{
+           $categorys = CategoryFather::where('user_id',Auth::user()->id)->get();
         }
         return view('admin.categoryfather.index',compact('categorys'));
     }
@@ -102,7 +104,7 @@ class CategoryController extends Controller
         $this->validate($request,[
             'name' => 'required|string',
             'slug' => 'required|string',
-            'image' => 'required|image',
+             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
         $imageName = '';
         if($request->hasFile('image'))
@@ -249,11 +251,13 @@ class CategoryController extends Controller
         }elseif ($request->delete == 2) {
             SousCategory::find($id)->delete();
         }
-        // elseif ($request->delete == 3) {
-        //     CategoryFather::find($id)->delete();
-        // return redirect()->route('admin.category.create')->with('success','Le parent a bien ete supprimer');
-        // }
+        elseif ($request->delete == 3) {
+            CategoryFather::find($id)->delete();
+        return redirect()->route('admin.category.create')->with('success','Le parent a bien ete supprimer');
+        }
         return redirect()->route('admin.category.index')->with('success','La categorie a bien ete supprimer');
     }
     
 }
+
+

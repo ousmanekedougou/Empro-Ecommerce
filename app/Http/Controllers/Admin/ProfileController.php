@@ -79,7 +79,25 @@ class ProfileController extends Controller
                     'phone' => 'required|string',
                 ]);
                 
-                $update_admin = User::Where('slug',Auth::guard('web')->user()->slug)->first();
+                $update_admin = User::Where('slug',Auth::user()->slug)->first();
+                $update_admin->name = $request->name;
+                $update_admin->email = $request->email;
+                $update_admin->phone = $request->phone;
+                $update_admin->save();
+                return back();
+           }else if ($request->hidden == 2) {
+                $this->validate($request,[
+                    'password' => 'required|string|confirmed',
+                ]);
+                $update_admin = User::Where('slug',Auth::user()->slug)->first();
+                $update_admin->password = Hash::make($request->password);
+                $update_admin->save();
+                return back();
+           }elseif ($request->hidden == 3) {
+                $this->validate($request,[
+                   'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
+                ]);
+               $update_admin = User::Where('slug',Auth::user()->slug)->first();
                 $imageName = '';
                 if($request->image == '')
                 {
@@ -91,18 +109,7 @@ class ProfileController extends Controller
                         $imageName = $request->image->store('public/Admins');
                     }
                 }
-                $update_admin->name = $request->name;
-                $update_admin->email = $request->email;
-                $update_admin->phone = $request->phone;
                 $update_admin->image = $imageName;
-                $update_admin->save();
-                return back();
-           }elseif ($request->hidden == 2) {
-                 $this->validate($request,[
-                    'password' => 'required|string|confirmed',
-                ]);
-                $update_admin = User::Where('slug',Auth::guard('web')->user()->slug)->first();
-                $update_admin->password = Hash::make($request->password);
                 $update_admin->save();
                 return back();
            }

@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         $admin = Auth::user();
-        $orders = Order::where('created_at','==',Carbon::today())->orderBy('created_at','DESC')->get();
+        $orders = Order::where('created_at','<',Carbon::today())->orderBy('created_at','DESC')->get();
         return view('admin.home',compact('admin','orders'));
     }
 }

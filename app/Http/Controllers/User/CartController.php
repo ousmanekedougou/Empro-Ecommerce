@@ -39,8 +39,6 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        
-
         $duplicata = Cart::search(function($cartItem , $rowId) use ($request){
             return $cartItem->id == $request->product_id;
         });

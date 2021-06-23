@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use  App\Models\User\CategoryFather;
 use App\Models\User\Product;
+use App\Models\User\Shop;
 
 class User extends Authenticatable
 {
@@ -52,8 +53,13 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-     public function products(){
+    public function products(){
         return $this->hasMany(Product::class);
+    }
+
+
+    public function shops(){
+        return $this->hasMany(Shop::class);
     }
 
     public function categories(){

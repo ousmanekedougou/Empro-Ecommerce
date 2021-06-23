@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use DateTime;
 use Illuminate\Support\Facades\Auth;
-
-class OrderController extends Controller
+class CostumerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('created_at','>',Carbon::yesterday())->where('created_at','<',Carbon::tomorrow())->orderBy('created_at','DESC')->get();
-        return view('admin.orders.index',compact('orders'));
+        if (Auth::user()->status == 1) {
+            define('STATUS',4);
+            $costomers = User::where('status',STATUS)->get();
+            return view('admin.costomers.index',compact('costomers'));
+        }else {
+            return back()->with('error','Acces non autoriser');
+        }
     }
 
     /**
@@ -74,23 +76,18 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'option' => 'required|numeric',
-        ]);
-        define('STATUS',1);
-        $payment_livraison = Order::where('id',$id)->first();
-        if ($payment_livraison->status != STATUS && $payment_livraison->amount <= 0) {
-            $payment_livraison->amount = $request->amount_livraison;
-            $payment_livraison->status = STATUS;
-            $payment_livraison->livraison = $request->option;
-            $payment_livraison->payment_created_at = (new DateTime());
-            $payment_livraison->admin_id = Auth::user()->id;
-            $payment_livraison->save();
-            return back()->with('success','Votre commande a ete payer');
-        }else
-        {
-            return back()->with('error','Cette commande a ete deja regler');
+        $isAcitve = '';
+        define('ISACTIVE',1);
+        define('DESACTIVE',0);
+        $update_costomer = User::where('id',$id)->first();
+        if ($request->isActive != Null) {
+            $isAcitve = ISACTIVE;
+        }else{
+            $isAcitve = DESACTIVE;
         }
+        $update_costomer->isActive = $isAcitve;
+        $update_costomer->save();
+        return back()->with('success','Ce Compte a ete mise a jour');
     }
 
     /**
@@ -101,7 +98,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        Order::find($id)->delete();
-        return back()->with('success','Votre commande a ete supprimer avec succes');
+        if (Auth::user()->status == 1) {
+            User::find($id)->delete();
+            return back()->with('success','Ce client a ete supprimer');
+        }else {
+            return back()->with('error','Acces non autoriser');
+        }
     }
 }

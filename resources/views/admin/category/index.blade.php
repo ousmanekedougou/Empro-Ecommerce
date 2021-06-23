@@ -101,16 +101,42 @@
                                                         <td>
                                                             <div class="d-flex gap-3">
                                                                 <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target=".orderdetailsModal-{{$category->id}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                                <form  id="delete-form-{{$category->id}}" method="post" action="{{ route('admin.category.destroy',$category->id) }}"  style="display:none">
-                                                                  {{csrf_field()}}
-                                                                  {{method_field('delete')}}
-                                                                  <input type="hidden" name="delete" value="1">
-                                                                </form>
-                                                                <a href="javascript:void(0);" class="text-danger"
-                                                                  onclick=" if(confirm('Etes Vous sure de supprimer cette categorie ?')){ 
-                                                                     event.preventDefault();document.getElementById('delete-form-{{$category->id}}').submit();
-                                                                    }else{event.preventDefault();} "
-                                                                ><i class="mdi mdi-delete font-size-18"></i></a>
+                                                                 <a href="javascript:void(0);" role="button" aria-disabled="true" data-bs-toggle="modal" class="text-danger" data-bs-target="#subscribeModalCategory-{{ $category->id }}"><i class="mdi mdi-delete font-size-18"></i></a>
+                                                                <div class="modal modal-xs fade" id="subscribeModalCategory-{{ $category->id }}" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header border-bottom-0">
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="text-center mb-4">
+                                                                                    <div class="avatar-md mx-auto mb-4">
+                                                                                        <div class="avatar-title bg-warning rounded-circle text-white h1">
+                                                                                            <i class="fa fa-exclamation-circle"></i>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row justify-content-center">
+                                                                                        <div class="col-xl-10">
+                                                                                            <h4 class="text-danger">Attention !</h4>
+                                                                                            <p class="text-muted font-size-14 mb-4">Etes vous sure de bien vouloire supprimer cette categorie</p>
+
+                                                                                            <div class="input-group bg-white rounded text-center" style="text-align:center;">
+                                                                                                <form method="post" action="{{ route('admin.category.destroy',$category->id) }}"  style="display:flex;text-align:center;width:100%;">
+                                                                                                    {{csrf_field()}}
+                                                                                                    {{method_field('delete')}}
+                                                                                                      <input type="hidden" name="delete" value="1">
+                                                                                                    <button type="submit" class="btn btn-danger btn-xs" style="margin-left: 70px;margin-right:20px;"> Oui je veux bient </button> 
+                                                                                                    <button type="button" class="btn btn-success btn-xs" data-bs-dismiss="modal" aria-label="Close"> x Anuller</button>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -143,16 +169,42 @@
                                                         <td>
                                                             <div class="d-flex gap-3">
                                                                 <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target=".orderdetailsModal-sous_category-{{$sous_category->id}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                                <form  id="delete-form-{{$sous_category->id}}" method="post" action="{{ route('admin.category.destroy',$sous_category->id) }}"  style="display:none">
-                                                                  {{csrf_field()}}
-                                                                  {{method_field('delete')}}
-                                                                    <input type="hidden" name="delete" value="2">
-                                                                </form>
-                                                                <a href="javascript:void(0);" class="text-danger"
-                                                                  onclick=" if(confirm('Etes Vous sure de supprimer cette sous-categorie ?')){ 
-                                                                     event.preventDefault();document.getElementById('delete-form-{{$sous_category->id}}').submit();
-                                                                    }else{event.preventDefault();} "
-                                                                ><i class="mdi mdi-delete font-size-18"></i></a>
+                                                                <a href="javascript:void(0);" role="button" aria-disabled="true" data-bs-toggle="modal" class="text-danger" data-bs-target="#subscribeModalSousCategory-{{ $sous_category->id }}"><i class="mdi mdi-delete font-size-18"></i></a>
+                                                                <div class="modal modal-xs fade" id="subscribeModalSousCategory-{{ $sous_category->id }}" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header border-bottom-0">
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="text-center mb-4">
+                                                                                    <div class="avatar-md mx-auto mb-4">
+                                                                                        <div class="avatar-title bg-warning rounded-circle text-white h1">
+                                                                                            <i class="fa fa-exclamation-circle"></i>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row justify-content-center">
+                                                                                        <div class="col-xl-10">
+                                                                                            <h4 class="text-danger">Attention !</h4>
+                                                                                            <p class="text-muted font-size-14 mb-4">Etes vous sure de bien vouloire supprimer cette sous-categorie</p>
+
+                                                                                            <div class="input-group bg-white rounded text-center" style="text-align:center;">
+                                                                                                <form method="post" action="{{ route('admin.category.destroy',$sous_category->id) }}"  style="display:flex;text-align:center;width:100%;">
+                                                                                                    {{csrf_field()}}
+                                                                                                    {{method_field('delete')}}
+                                                                                                      <input type="hidden" name="delete" value="2">
+                                                                                                    <button type="submit" class="btn btn-danger btn-xs" style="margin-left: 70px;margin-right:20px;"> Oui je veux bient </button> 
+                                                                                                    <button type="button" class="btn btn-success btn-xs" data-bs-dismiss="modal" aria-label="Close"> x Anuller</button>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -267,7 +319,7 @@
                                     <div class="">
                                         <select id="parent" name="parent" class="form-select @error('parent') is-invalid @enderror" value="{{ old('parent') }}" autocomplete="parent">
                                             <option value="" desabled>Choisire un  categorie</option>
-                                            @foreach(App\Models\User\CategoryFather::all() as $category_parente)
+                                            @foreach($category_fathers as $category_parente)
                                                 <option value="{{ $category_parente->id }}">{{$category_parente->name}}</option>
                                             @endforeach
                                         </select>
@@ -329,7 +381,7 @@
                                     <div class="">
                                         <select id="parent" name="parent" class="form-select @error('parent') is-invalid @enderror" value="{{ old('parent') }}" autocomplete="parent">
                                             <option value="" desabled>Choisire un  categorie</option>
-                                            @foreach(App\Models\User\CategoryFather::all() as $category_parente)
+                                            @foreach($category_fathers as $category_parente)
                                                 <option value="{{ $category_parente->id }}"
                                                      @if($category_parente->id == $category->category_father->id)
                                                             selected

@@ -12,7 +12,7 @@ class HomeController extends Controller
 
      public function index()
     {
-        $products = Product::take(12)->get();
+        $products = Product::take(12)->orderBy('created_at','DESC')->get();
 
         $hotdeals = [];
        
@@ -24,7 +24,7 @@ class HomeController extends Controller
                 ];
             }
         $populars = [];
-        $category_fathers = CategoryFather::limit(12)->get();
+        $category_fathers = CategoryFather::take(12)->orderBy('created_at','DESC')->get();
           for ($i=0; $i < count($category_fathers); $i++) { 
                 $populars[] = [
                     $category_fathers[$i],

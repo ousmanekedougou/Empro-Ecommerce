@@ -15,7 +15,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(20);
         if (request()->sous_categorie) {
             $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
                 $query->where('slug',request()->sous_categorie);
@@ -23,7 +22,7 @@ class ProductController extends Controller
         }else{
             $products = Product::with('sous_categories')->orderBy('created_at','DESC')->get();
         }
-        return view('user.product.index',compact('products','categories'));
+        return view('user.product.index',compact('products'));
     }
 
     /**

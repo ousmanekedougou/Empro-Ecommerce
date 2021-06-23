@@ -40,7 +40,7 @@
                                             <p class="text-muted">{{$admin->phone}}</p>
 
                                             <div>
-                                                <a href="#" class="badge bg-primary font-size-11 m-1">Html</a>
+                                                <a href="{{ route('admin.shop.index', ['slug'=> $admin->slug]) }}" class="badge bg-success font-size-11 m-1">{{count($admin->shops)}} Boutique(s)</a>
                                                 <a href="#" class="badge bg-primary font-size-11 m-1">Css</a>
                                                 <a href="#" class="badge bg-primary font-size-11 m-1">2 + more</a>
                                             </div>
@@ -48,21 +48,51 @@
                                         <div class="card-footer bg-transparent border-top">
                                             <div class="contact-links d-flex font-size-20">
                                                 <div class="flex-fill">
-                                                    <a href="#"><i class="bx bx-message-square-dots"></i></a>
+                                                    <a href="#" class="text-primary"><i class="bx bx-message-square-dots"></i></a>
                                                 </div>
                                                 <div class="flex-fill">
-                                                    <a data-bs-toggle="modal" data-bs-target=".orderdetailsModal-{{$admin->id}}"><i class="bx bx-edit"></i></a>
+                                                    <a data-bs-toggle="modal" data-bs-target=".orderdetailsModal-{{$admin->id}}" class="text-success"><i class="bx bx-edit"></i></a>
                                                 </div>
-                                                <div class="flex-fill">
-                                                    <a href="javascript:void(0);"
-                                                        onclick=" if(confirm('Etes Vous sure de supprimer cette utilisateurs ?')){ 
-                                                            event.preventDefault();document.getElementById('delete-form-{{$admin->id}}').submit();
-                                                        }else{event.preventDefault();} "><i class="bx bx-trash"></i></a>
-                                                    <form  id="delete-form-{{$admin->id}}" method="post" action="{{ route('admin.membre.destroy',$admin->id) }}"  style="display:none">
-                                                        {{csrf_field()}}
-                                                        {{method_field('delete')}}
-                                                    </form>
-                                                </div>
+                                                @if($admin->status != 1)
+                                                    <div class="flex-fill">
+                                                        <a href="javascript:void(0);" role="button" aria-disabled="true" data-bs-toggle="modal" class="text-danger" data-bs-target="#subscribeModalAdmin-{{ $admin->id }}"><i class="bx bx-trash"></i></a>
+
+                                                        <div class="modal modal-xs fade" id="subscribeModalAdmin-{{ $admin->id }}" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header border-bottom-0">
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="text-center mb-4">
+                                                                            <div class="avatar-md mx-auto mb-4">
+                                                                                <div class="avatar-title bg-warning rounded-circle text-white h1">
+                                                                                    <i class="fa fa-exclamation-circle"></i>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row justify-content-center">
+                                                                                <div class="col-xl-10">
+                                                                                    <h4 class="text-danger">Attention !</h4>
+                                                                                    <p class="text-muted font-size-14 mb-4">Etes vous sure de bien vouloire supprimer cet administrateur</p>
+
+                                                                                    <div class="input-group bg-white rounded text-center" style="text-align:center;">
+                                                                                        <form method="post" action="{{ route('admin.membre.destroy',$admin->id) }}"  style="display:flex;text-align:center;width:100%;">
+                                                                                            {{csrf_field()}}
+                                                                                            {{method_field('delete')}}
+                                                                                            <button type="submit" class="btn btn-danger btn-xs" style="margin-left: 70px;margin-right:20px;"> Oui je veux bient </button> 
+                                                                                            <button type="button" class="btn btn-success btn-xs" data-bs-dismiss="modal" aria-label="Close"> x Anuller</button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

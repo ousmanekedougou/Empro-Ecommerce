@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User\Category;
 use App\Models\User;
 use App\Models\User\SousCategory;
+use App\Models\User\Shop;
 class Product extends Model
 {
     use HasFactory;
@@ -30,6 +31,10 @@ class Product extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+      public function shop(){
+        return $this->belongsTo(Shop::class);
     }
 }
 

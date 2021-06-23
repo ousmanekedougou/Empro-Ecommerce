@@ -74,7 +74,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="mt-4">
-                                                        <a href="#" class="btn btn-primary waves-effect waves-light btn-sm">Votre image <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target=".orderEditModal-{{ $admin->id }}" class="btn btn-info waves-effect waves-light btn-sm">Image <i class="fa fa-camera-retro ms-1"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,7 +121,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title mb-4">Modifier vos information</h4>
                                         <div class="table-responsive">
-                                            <form action="{{ route('admin.profil.update',Auth::guard('web')->user()->slug) }}" method="post" enctype="multipart/form-data">
+                                            <form action="{{ route('admin.profil.update',Auth::guard('web')->user()->slug) }}" method="post">
                                                 {{csrf_field()}}
                                                 {{method_field('PUT')}}
                                                 <div class="modal-body">
@@ -154,19 +154,6 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="image">Image du membre ( facultatif )</label>
-                                                            <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}"  autocomplete="image">
-                                                        @error('image')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-
-                                                    
-                                                
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary btn-block">Enregistre</button>
@@ -220,6 +207,56 @@
                     </div> <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
+
+
+
+                    <div class="modal fade orderEditModal-{{ $admin->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-center mb-4">
+                                        <div class="avatar-md mx-auto mb-4">
+                                            <div class="avatar-title bg-light rounded-circle text-primary h1">
+                                                 <img src="{{ Storage::url($admin->image) }}" alt="" class="img-thumbnail rounded-circle">
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-center">
+                                            <div class="col-xl-10">
+                                                <h4 class="text-primary">{{$admin->name}}</h4>
+                                                <p class="text-muted font-size-14 mb-4">Vous allez modifier votre image de profile</p>
+
+                                                <div class="input-group rounded">
+                                                    <form  id="update-form-{{$admin->id}}" method="post" action="{{ route('admin.profil.update',$admin->id) }}" style="width: 100%;" enctype="multipart/form-data">
+                                                        {{csrf_field()}}
+                                                        {{method_field('PUT')}}
+                                                        <p><input type="hidden" name="hidden" value="3"></p>
+                                                            <p>
+                                                                <label for="image">Image</label>
+                                                                <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}"  autocomplete="image" style="width: 100%;">
+                                                            </p>
+                                                        @error('image')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </form>
+                                                    <a  href="" onclick=" if(confirm('Etes Vous sure de modifier cette image ?')){  event.preventDefault();document.getElementById('update-form-{{$admin->id}}').submit();
+                        
+                                                    }else{event.preventDefault();} " class="btn btn-primary btn-block" style="width: 100%;"><i class="fa fa-camera-retro me-2"></i>Modifier votre image profile</a>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 @endsection

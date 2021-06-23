@@ -25,6 +25,8 @@ Route::get('/client/register', [App\Http\Controllers\User\ClientController::clas
 Route::post('/client/register', [App\Http\Controllers\User\ClientController::class,'store'])->name('client.store');
 Route::get('/client/login', [App\Http\Controllers\User\ClientController::class,'create'])->name('client.login');
 Route::delete('/client/destroy/{id}', [App\Http\Controllers\User\ClientController::class,'destroy'])->name('client.destroy');
+Route::delete('/client/delete_compte/{id}', [App\Http\Controllers\User\ClientController::class,'delete_compte'])->name('client.delete_compte');
+Route::put('/client/update/{id}', [App\Http\Controllers\User\ClientController::class,'update'])->name('client.update');
 
 Route::resource('/panier', App\Http\Controllers\User\CartController::class); 
 
@@ -55,6 +57,8 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->name('admin.')->group(f
     Route::resource('/membre', App\Http\Controllers\Admin\MembreController::class); 
     Route::resource('/order', App\Http\Controllers\Admin\OrderController::class); 
     Route::resource('/contact', App\Http\Controllers\Admin\ContactController::class); 
+    Route::resource('/costomer', App\Http\Controllers\Admin\CostumerController::class); 
+    Route::resource('/shop', App\Http\Controllers\Admin\ShopController::class); 
     Route::get('/profil/show/{slug}', [App\Http\Controllers\Admin\ProfileController::class,'show'])->name('profil.show'); 
     Route::put('/profil/update/{id}', [App\Http\Controllers\Admin\ProfileController::class,'update'])->name('profil.update'); 
     Route::get('/search', [App\Http\Controllers\Admin\ProductController::class, 'search'])->name('product.search');

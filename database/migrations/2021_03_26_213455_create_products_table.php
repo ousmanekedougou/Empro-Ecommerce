@@ -21,14 +21,13 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->integer('price');
             $table->string('image');
-            $table->unsignedInteger('stock')->default(50);
+            $table->unsignedInteger('stock')->default(20);
             $table->string('images')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('owner_name')->nullable();
-            $table->string('owner_phone')->nullable();
-            $table->string('owner_adresse')->nullable();
-            $table->string('owner_shop_name')->nullable();
+            $table->unsignedBigInteger('shop_id');
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
+           
             $table->timestamps();
         });
     }

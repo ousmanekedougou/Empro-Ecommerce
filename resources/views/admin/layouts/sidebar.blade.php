@@ -31,11 +31,8 @@
                                 <li><a href="{{ route('admin.category.index') }}" key="t-product-detail">Category</a>
                                 </li>
                                 <li><a href="{{ route('admin.order.index') }}" key="t-orders">Orders</a></li>
-                                <li><a href="" key="t-customers">Customers</a></li>
-                                <li><a href="" key="t-cart">Cart</a></li>
-                                <li><a href="" key="t-checkout">Checkout</a></li>
-                                <li><a href="" key="t-shops">Shops</a></li>
-                                <li><a href="{{ route('admin.product.create') }}" key="t-add-product">Ajouter Un Product</a></li>
+                                <li><a href="{{ route('admin.costomer.index') }}" key="t-customers">Clients</a></li>
+                                <li><a href="{{ route('admin.shop.index') }}" key="t-shops">Magasin</a></li>
                             </ul>
                         </li>
 

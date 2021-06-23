@@ -63,7 +63,8 @@
                                                         <th class="align-middle">Total</th>
                                                         <th class="align-middle">Payment Status</th>
                                                         <th class="align-middle">Payment Method</th>
-                                                        <th class="align-middle">View Details</th>
+                                                        <th class="align-middle">Livraison Method</th>
+                                                        <th class="align-middle">Details</th>
                                                         <th class="align-middle">Action</th>
                                                     </tr>
                                                 </thead>
@@ -95,21 +96,62 @@
                                                             <i class="fab fa-cc-mastercard me-1"></i> Mastercard
                                                         </td>
                                                         <td>
+                                                            @if($order->livraison == 1)
+                                                                <span class="badge badge-pill badge-soft-success font-size-12">A Livre</span>
+                                                            @elseif($order->livraison == 2)
+                                                                <span class="badge badge-pill badge-soft-success font-size-12">A recupere</span>
+                                                            @elseif($order->livraison == 3)
+                                                                <span class="badge badge-pill badge-soft-success font-size-12">Commande Recupere</span>
+                                                            @elseif($order->livraison == 4)
+                                                                <span class="badge badge-pill badge-soft-success font-size-12">Commande Livre</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal" data-bs-target=".orderdetailsModal{{ $order->id }}">
-                                                                Voire Details
-                                                            </button>
+                                                            <a href="javascript:void(0);" role="button" aria-disabled="true" class="text-primary" data-bs-toggle="modal" data-bs-target=".orderdetailsModal{{ $order->id }}">
+                                                                <i class="mdi mdi-eye font-size-18"></i>
+                                                            </a>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex gap-3">
                                                                 <a href="javascript:void(0);" role="button" aria-disabled="true" class="text-success" data-bs-toggle="modal" data-bs-target=".orderEditModal{{ $order->id }}"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                                <form  id="delete-form-{{$order->id}}" method="post" action="{{ route('admin.order.destroy',$order->id) }}"  style="display:none">
-                                                                    {{csrf_field()}}
-                                                                    {{method_field('delete')}}
-                                                                </form>
-                                                                <a  href="javascript:void(0);" onclick=" if(confirm('Etes Vous sure de supprimer cette commande ?')){  event.preventDefault();document.getElementById('delete-form-{{$order->id}}').submit();
-                                    
-                                                                }else{event.preventDefault();} " class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
+                                                              
+
+                                                                <a href="javascript:void(0);" role="button" aria-disabled="true" data-bs-toggle="modal" class="text-danger" data-bs-target="#subscribeModalorder-{{ $order->id }}"><i class="mdi mdi-delete font-size-18"></i></a>
+                                                                <div class="modal modal-xs fade" id="subscribeModalorder-{{ $order->id }}" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header border-bottom-0">
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="text-center mb-4">
+                                                                                    <div class="avatar-md mx-auto mb-4">
+                                                                                        <div class="avatar-title bg-warning rounded-circle text-white h1">
+                                                                                            <i class="fa fa-exclamation-circle"></i>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row justify-content-center">
+                                                                                        <div class="col-xl-10">
+                                                                                            <h4 class="text-danger">Attention !</h4>
+                                                                                            <p class="text-muted font-size-14 mb-4">Etes vous sure de bien vouloire supprimer cette commande</p>
+
+                                                                                            <div class="input-group bg-white rounded text-center" style="text-align:center;">
+                                                                                                <form method="post" action="{{ route('admin.order.destroy',$order->id) }}"  style="display:flex;text-align:center;width:100%;">
+                                                                                                    {{csrf_field()}}
+                                                                                                    {{method_field('delete')}}
+                                                                                                    <button type="submit" class="btn btn-danger btn-xs" style="margin-left: 70px;margin-right:20px;"> Oui je veux bient </button> 
+                                                                                                    <button type="button" class="btn btn-success btn-xs" data-bs-dismiss="modal" aria-label="Close"> x Anuller</button>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
                                                                 
                                                             </div>
                                                         </td>
@@ -144,7 +186,7 @@
                 </div>
                 <!-- End Page-content -->
 
-                <!-- Modal -->
+                <!-- Modal du detial de la commande-->
                 @foreach($orders as $order)
                     <div class="modal fade orderdetailsModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -178,7 +220,7 @@
                                                     <td>
                                                         <div>
                                                             <h5 class="text-truncate font-size-14">{{ $product[1] }}</h5>
-                                                            <p class="text-muted mb-0">{{ $product[3] }} unite</p>
+                                                            <p class="text-muted mb-0">{{ $product[3] }} unite(s)</p>
                                                         </div>
                                                     </td>
                                                     <td>{{ getPrice($product[4]) }}</td>
@@ -236,35 +278,83 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="text-center mb-4">
+                                        {{--
                                         <div class="avatar-md mx-auto mb-4">
                                             <div class="avatar-title bg-light rounded-circle text-primary h1">
                                                 <img src="{{ Storage::url(Auth::user()->image) }}" alt="" class="img-thumbnail rounded-circle">
                                             </div>
                                         </div>
+                                        --}}
 
                                         <div class="row justify-content-center">
                                             <div class="col-xl-10">
-                                                <h4 class="text-primary">{{Auth::user()->name}}</h4>
-                                                <p class="text-muted font-size-14 mb-4">Vous ete en phase de valider le payment de la commende.</p>
+                                                <h4 class="text-primary"> Salut {{Auth::user()->name}}</h4>
+                                            @if($order->status == 1 && $order->amount > 0)
+                                                <div class="input-group bg-white rounded row">
+                                                    <div class="col-md-5">
+                                                        <div class="avatar-title bg-light rounded-circle text-primary h1">
+                                                            <img src="{{ asset('admin/assets/images/crypto/validate.jpg') }}" alt="" class="img-thumbnail rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7" style="margin-top: 30px; padding-left:10px;">
+                                                        <p class="text-muted font-size-16 mb-4">Cette commande a été déjà payée  
+                                                            @if($order->livraison == 1)
+                                                               et doit etre livrée
+                                                            @elseif($order->livraison == 2)
+                                                                et doit etre récupérée
+                                                            @elseif($order->livraison == 3)
+                                                                et récupérée le {{ $order->payment_created_at }}
+                                                            @elseif($order->livraison == 4)
+                                                               et livrée le {{ $order->payment_created_at }}
+                                                            @endif
+                                                            
+                                                        </p>
+                                                    </div>
 
-                                                <div class="input-group bg-light rounded">
-                                                    <!-- <input type="email" class="form-control bg-transparent border-0" placeholder="Enter Email address" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                                    
-                                                    <button class="btn btn-primary" type="button" id="button-addon2">
-                                                        <i class="bx bxs-paper-plane"></i>
-                                                    </button> -->
-
-                                                    <form  id="update-form-{{$order->id}}" method="post" action="{{ route('admin.order.update',$order->id) }}"  style="display:none">
-                                                        {{csrf_field()}}
-                                                        {{method_field('PUT')}}
-                                                        <input type="hidden" name="amount_livraison" value="{{ $order->amount_livraison }}">
-                                                    </form>
-                                                    <a  href="" onclick=" if(confirm('Etes Vous sure de que la commande a ete payer ?')){  event.preventDefault();document.getElementById('update-form-{{$order->id}}').submit();
-                        
-                                                    }else{event.preventDefault();} " class="btn btn-success btn-block" style="width: 100%;"><i class="fas fa-credit-card me-2"></i>Enregistre le paiement</a>
                                                     
                                                 </div>
-                                                
+                                            @elseif($order->status == 2 && $order->amount <= 0)
+                                                <p class="text-muted font-size-14 mb-4">Vous êtes en phase de valider le payment de la commende de <span class="text-success" style="font-weight: bold;">{{ $order->user->name }} / {{ $order->user->phone }}</span>.</p>
+                                                <div class="input-group bg-white rounded row">
+                                                    <div class="col-md-5">
+                                                        <div class="avatar-title bg-light rounded-circle text-primary h1">
+                                                            <img src="{{ asset('admin/assets/images/crypto/payment.jpg') }}" alt="" class="img-thumbnail rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 mt-4">
+                                                        <form  id="update-form-{{$order->id}}" method="post" action="{{ route('admin.order.update',$order->id) }}">
+                                                        
+                                                            {{csrf_field()}}
+                                                            {{method_field('PUT')}}
+                                                            <input type="hidden" name="amount_livraison" value="{{ $order->amount_livraison }}">
+                                                            <div class="" style="text-align: center;width:100%;margin-left:30px;">
+                                                                <div class="form-check form-radio-primary mb-3">
+                                                                    <input class="form-check-input @error('option') is-invalid @enderror"  value="{{ old('option') ?? 3 }}" required type="radio" name="option" id="option1" >
+                                                                    <label class="form-check-label" for="option1">
+                                                                        A été récupérée
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-radio-success mb-3">
+                                                                    <input class="form-check-input @error('option') is-invalid @enderror"  value="{{ old('option') ?? 4 }}" required type="radio" name="option" id="option2" >
+                                                                    <label class="form-check-label" for="option2">
+                                                                        A été livrée
+                                                                    </label>
+                                                                </div>
+                                                                @error('option')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                            </div>
+                                                        </form>
+                                                   
+                                                        <a  href="" style="width: 100%;" onclick=" if(confirm('Etes Vous sure de que la commande a ete payer ?')){  event.preventDefault();document.getElementById('update-form-{{$order->id}}').submit();
+                        
+                                                        }else{event.preventDefault();} " class="btn btn-success btn-block" style="width: 100%;"><i class="fas fa-credit-card me-2"></i>Valider le paiement</a>
+                                                    </div>
+                                                    
+                                                </div>
+                                            @endif
                                             </div>
                                         </div>
                                     </div>

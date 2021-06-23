@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 class MembreController extends Controller
 {
     
@@ -17,8 +18,11 @@ class MembreController extends Controller
      */
     public function index()
     {
-        $admins = User::all();
-        return view('admin.admin.index',compact('admins'));
+        define('STATUS',4);
+        if (Auth::user()->status == 1) {
+            $admins = User::where('status','!=',STATUS)->get();
+            return view('admin.admin.index',compact('admins'));
+        }
     }
 
     /**
@@ -63,6 +67,8 @@ class MembreController extends Controller
         $add_membre->image = $imageName;
         $add_membre->status = $request->radio;
         $add_membre->slug = $request->slug;
+        $add_membre->isActive = 1;
+        $add_membre->isAdmin = 1;
         $add_membre->save();
         return back();
     }

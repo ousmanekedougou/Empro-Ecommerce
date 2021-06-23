@@ -80,15 +80,15 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Monthly Earning</h4>
+                            <h4 class="card-title mb-4">Gain mensuel</h4>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p class="text-muted">This month</p>
-                                    <h3>$34,252</h3>
-                                    <p class="text-muted"><span class="text-success me-2"> 12% <i class="mdi mdi-arrow-up"></i> </span> From previous period</p>
+                                    <p class="text-muted">Ce mois-ci</p>
+                                    <h3>70 000 000 f</h3>
+                                    <p class="text-muted"><span class="text-success me-2"> 12% <i class="mdi mdi-arrow-up"></i> </span> De la période précédente</p>
 
                                     <div class="mt-4">
-                                        <a href="#" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                        <a href="#" class="btn btn-primary waves-effect waves-light btn-sm">Voir plus <i class="mdi mdi-arrow-right ms-1"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="text-muted mb-0">We craft digital, graphic and dimensional thinking.</p>
+                            <p class="text-muted mb-0">Nous créons une pensée numérique, graphique et dimensionnelle.</p>
                         </div>
                     </div>
                 </div>
@@ -396,7 +396,8 @@
                                             <th class="align-middle">Total</th>
                                             <th class="align-middle">Payment Status</th>
                                             <th class="align-middle">Payment Method</th>
-                                            <th class="align-middle">View Details</th>
+                                            <th class="align-middle">Livraison Method</th>
+                                            <th class="align-middle">Details</th>
                                             <th class="align-middle">Action</th>
                                         </tr>
                                     </thead>
@@ -428,14 +429,25 @@
                                                 <i class="fab fa-cc-mastercard me-1"></i> Mastercard
                                             </td>
                                             <td>
+                                                @if($order->livraison == 1)
+                                                    <span class="badge badge-pill badge-soft-success font-size-12">A Livre</span>
+                                                @elseif($order->livraison == 2)
+                                                    <span class="badge badge-pill badge-soft-success font-size-12">A recupere</span>
+                                                @elseif($order->livraison == 3)
+                                                    <span class="badge badge-pill badge-soft-success font-size-12">Commande Recupere</span>
+                                                @elseif($order->livraison == 4)
+                                                    <span class="badge badge-pill badge-soft-success font-size-12">Commande Livre</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-primary btn-sm btn-rounded" data-bs-toggle="modal" data-bs-target=".orderdetailsModal{{ $order->id }}">
-                                                    Voire Details
-                                                </button>
+                                                <a href="javascript:void(0);" role="button" aria-disabled="true" class="text-primary text-center" data-bs-toggle="modal" data-bs-target=".orderdetailsModal{{ $order->id }}">
+                                                    <i class="mdi mdi-eye font-size-18"></i>
+                                                </a>
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-3">
-                                                    <a href="javascript:void(0);" class="text-success"  data-bs-toggle="modal" data-bs-target=".orderdetailsModal{{ $order->id }}"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                                    <a href="javascript:void(0);" class="text-success"  data-bs-toggle="modal" data-bs-target=".orderEditModal{{ $order->id }}"><i class="mdi mdi-pencil font-size-18"></i></a>
                                                         <form  id="delete-form-{{$order->id}}" method="post" action="{{ route('admin.order.destroy',$order->id) }}"  style="display:none">
                                                         {{csrf_field()}}
                                                         {{method_field('delete')}}
@@ -480,7 +492,7 @@
 
     <!-- Transaction Modal -->
         @foreach($orders as $order)
-            <div class="modal fade orderdetailsModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
+            <div class="modal fade orderdetailsModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                     <div class="modal-content ">
                         <div class="modal-header">
@@ -600,7 +612,7 @@
 
                <!-- La partie de l'edition du modal -->
                 @foreach($orders as $order)
-                    <div class="modal fade orderEditModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
+                    <div class="modal fade orderEditModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header border-bottom-0">
@@ -608,35 +620,83 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="text-center mb-4">
+                                        {{--
                                         <div class="avatar-md mx-auto mb-4">
                                             <div class="avatar-title bg-light rounded-circle text-primary h1">
-                                                 <img src="{{ Storage::url($admin->image) }}" alt="" class="img-thumbnail rounded-circle">
+                                                <img src="{{ Storage::url(Auth::user()->image) }}" alt="" class="img-thumbnail rounded-circle">
                                             </div>
                                         </div>
+                                        --}}
 
                                         <div class="row justify-content-center">
                                             <div class="col-xl-10">
-                                                <h4 class="text-primary">{{$admin->name}}</h4>
-                                                <p class="text-muted font-size-14 mb-4">Vous ete en phase de valider le payment de la commende.</p>
+                                                <h4 class="text-primary"> Salut {{Auth::user()->name}}</h4>
+                                            @if($order->status == 1 && $order->amount > 0)
+                                                <div class="input-group bg-white rounded row">
+                                                    <div class="col-md-5">
+                                                        <div class="avatar-title bg-light rounded-circle text-primary h1">
+                                                            <img src="{{ asset('admin/assets/images/crypto/validate.jpg') }}" alt="" class="img-thumbnail rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7" style="margin-top: 30px; padding-left:10px;">
+                                                        <p class="text-muted font-size-16 mb-4">Cette commande a été déjà payée  
+                                                            @if($order->livraison == 1)
+                                                               et doit etre livrée
+                                                            @elseif($order->livraison == 2)
+                                                                et doit etre récupérée
+                                                            @elseif($order->livraison == 3)
+                                                                et récupérée le {{ $order->payment_created_at }}
+                                                            @elseif($order->livraison == 4)
+                                                               et livrée le {{ $order->payment_created_at }}
+                                                            @endif
+                                                            
+                                                        </p>
+                                                    </div>
 
-                                                <div class="input-group bg-light rounded">
-                                                    <!-- <input type="email" class="form-control bg-transparent border-0" placeholder="Enter Email address" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                                    
-                                                    <button class="btn btn-primary" type="button" id="button-addon2">
-                                                        <i class="bx bxs-paper-plane"></i>
-                                                    </button> -->
-
-                                                    <form  id="update-form-{{$order->id}}" method="post" action="{{ route('admin.order.update',$order->id) }}"  style="display:none">
-                                                        {{csrf_field()}}
-                                                        {{method_field('PUT')}}
-                                                        <input type="hidden" name="amount_livraison" value="{{ $order->amount_livraison }}">
-                                                    </form>
-                                                    <a  href="" onclick=" if(confirm('Etes Vous sure de que la commande a ete payer ?')){  event.preventDefault();document.getElementById('update-form-{{$order->id}}').submit();
-                        
-                                                    }else{event.preventDefault();} " class="btn btn-success btn-block" style="width: 100%;"><i class="fas fa-credit-card me-2"></i>Enregistre le paiement</a>
                                                     
                                                 </div>
-                                                
+                                            @elseif($order->status == 2 && $order->amount <= 0)
+                                                <p class="text-muted font-size-14 mb-4">Vous êtes en phase de valider le payment de la commende de <span class="text-success" style="font-weight: bold;">{{ $order->user->name }} / {{ $order->user->phone }}</span>.</p>
+                                                <div class="input-group bg-white rounded row">
+                                                    <div class="col-md-5">
+                                                        <div class="avatar-title bg-light rounded-circle text-primary h1">
+                                                            <img src="{{ asset('admin/assets/images/crypto/payment.jpg') }}" alt="" class="img-thumbnail rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 mt-4">
+                                                        <form  id="update-form-{{$order->id}}" method="post" action="{{ route('admin.order.update',$order->id) }}">
+                                                        
+                                                            {{csrf_field()}}
+                                                            {{method_field('PUT')}}
+                                                            <input type="hidden" name="amount_livraison" value="{{ $order->amount_livraison }}">
+                                                            <div class="" style="text-align: center;width:100%;margin-left:30px;">
+                                                                <div class="form-check form-radio-primary mb-3">
+                                                                    <input class="form-check-input @error('option') is-invalid @enderror"  value="{{ old('option') ?? 3 }}" required type="radio" name="option" id="option1" >
+                                                                    <label class="form-check-label" for="option1">
+                                                                        A été récupérée
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-radio-success mb-3">
+                                                                    <input class="form-check-input @error('option') is-invalid @enderror"  value="{{ old('option') ?? 4 }}" required type="radio" name="option" id="option2" >
+                                                                    <label class="form-check-label" for="option2">
+                                                                        A été livrée
+                                                                    </label>
+                                                                </div>
+                                                                @error('option')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                            </div>
+                                                        </form>
+                                                   
+                                                        <a  href="" style="width: 100%;" onclick=" if(confirm('Etes Vous sure de que la commande a ete payer ?')){  event.preventDefault();document.getElementById('update-form-{{$order->id}}').submit();
+                        
+                                                        }else{event.preventDefault();} " class="btn btn-success btn-block" style="width: 100%;"><i class="fas fa-credit-card me-2"></i>Valider le paiement</a>
+                                                    </div>
+                                                    
+                                                </div>
+                                            @endif
                                             </div>
                                         </div>
                                     </div>

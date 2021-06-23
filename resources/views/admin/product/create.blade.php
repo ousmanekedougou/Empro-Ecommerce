@@ -4,6 +4,7 @@
 
     <!-- dropzone css -->
     <link href="{{asset('admin/assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
+   
 @endsection
 @section('main-content')
 
@@ -99,7 +100,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('admin.product.store') }}" method="post" class="dropzone" enctype="multipart/form-data" >
-                             @csrf
+                                @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mb-3">
@@ -113,7 +114,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="manufacturername">Sous titre du produit</label>
-                                             <input id="sous_name" name="sous_name" type="text" class="form-control @error('sous_name') is-invalid @enderror"  value="{{ old('sous_name') }}" required autocomplete="sous_name">
+                                                <input id="sous_name" name="sous_name" type="text" class="form-control @error('sous_name') is-invalid @enderror"  value="{{ old('sous_name') }}" required autocomplete="sous_name">
                                             @error('sous_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -122,7 +123,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="manufacturerbrand">Slug du produit</label>
-                                             <input id="slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug') }}" required autocomplete="slug">
+                                                <input id="slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug') }}" required autocomplete="slug">
                                             @error('slug')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -130,9 +131,14 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="manufacturerbrand">Nom du magasin</label>
-                                             <input id="owner_shop_name" name="owner_shop_name" type="text" class="form-control @error('owner_shop_name') is-invalid @enderror" value="{{ old('owner_shop_name') }}" required autocomplete="owner_shop_name">
-                                            @error('owner_shop_name')
+                                            <label class="">Choisire le magasin</label>
+                                            <select class="form-select @error('shop') is-invalid @enderror" name="shop" value="{{ old('shop') }}" required autocomplete="shop" >
+                                                <option value="" desabled selected>Choix par defaut</option>
+                                                @foreach($shops as $shop)
+                                                    <option value="{{ $shop->id }}">{{$shop->owner_shop_name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('shop')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -153,7 +159,7 @@
                                                 </optgroup>
                                                 @endforeach
                                             </select>
-                                              @error('category')
+                                                @error('category')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -170,9 +176,9 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="owner_adresse">Adresse du magasin</label>
-                                            <input id="owner_adresse" name="owner_adresse" type="text" class="form-control @error('owner_adresse') is-invalid @enderror" value="{{ old('owner_adresse') }}" required autocomplete="owner_adresse">
-                                            @error('owner_adresse')
+                                            <label for="stock">Nombre de stock</label>
+                                            <input id="stock" name="stock" type="number" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}" required autocomplete="stock">
+                                            @error('stock')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -180,7 +186,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="image">Image du produit</label>
-                                              <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}" required autocomplete="image">
+                                                <input id="image" name="image" type="file" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}" required autocomplete="image">
                                             @error('image')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -202,24 +208,37 @@
                                     </div>
                                 </div>
 
-                                <h4 class="card-title mb-3">Images similaires du produit</h4>
-                                <div class="fallback">
-                                    <input name="imageFile[]" type="file" multiple />
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                
+                                                <h4 class="card-title">Dropzone</h4>
+                                                <p class="card-title-desc">DropzoneJS is an open source library
+                                                    that provides drag’n’drop file uploads with image previews.
+                                                </p>
+                
+                                                <div>
+                                                    <div class="fallback">
+                                                        <input name="file" type="file" multiple="multiple">
+                                                    </div>
+                                                    <div class="dz-message needsclick">
+                                                        <div class="mb-3">
+                                                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                                                        </div>
+                                                        
+                                                        <h4>Drop files here or click to upload.</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- end col -->
+                                </div> 
+                                <div style="margin-left: 20px;margin-bottom:10px; margin-top:10px;" class="d-flex flex-wrap gap-2 ">
+                                    <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Save Changes</button>
+                                    <button type="submit" class="btn btn-secondary btn-block waves-effect waves-light">Cancel</button>
                                 </div>
-
-                                <div class="dz-message needsclick" style="border: 2px dashed silver;border-radius:8px;">
-                                    <div class="mb-3">
-                                        <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                    </div>
-                                    
-                                    <h4>Telecharger ici vos images similaires</h4>
-                                </div>
-                            </div>
-                            <div style="margin-left: 20px;margin-bottom:10px;" class="d-flex flex-wrap gap-2 ">
-                                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Save Changes</button>
-                                <button type="submit" class="btn btn-secondary btn-block waves-effect waves-light">Cancel</button>
-                            </div>
-                        </form>
+                            </form>
 
                     </div> <!-- end card-->
 
@@ -280,4 +299,6 @@
     <!-- init js -->
     <script src="{{asset('admin/assets/js/pages/ecommerce-select2.init.js')}}"></script>
 @endsection
+
+
 

@@ -59,7 +59,7 @@
 						<li><a class="text-uppercase h6" href="">Categories</a></li>
 						<li>
 							<ul class="category-sub-menu">
-								@foreach($categories as $category)
+								@foreach(all_category() as $category)
 								<li data-depth="0">
 									<a  href="{{ route('product.index', ['categorie'
 												=> $category->slug]) }}">{{$category->name}}</a>
@@ -198,8 +198,8 @@
 								</li>
 							</ul>
 
-
 						</section>
+
 						<section class="facet clearfix">
 							<p class="h6 facet-title hidden-sm-down">Price</p>
 
@@ -540,7 +540,7 @@
 											<li id="grid"> <i class="fa fa-th show_grid"></i></li>
 											<li id="list"> <i class="fa fa-list show_list"></i></li>
 										</ul>
-										<p class="hidden-sm-down">There are 17 products.</p>
+										<p class="hidden-sm-down">Il y a {{count($products)}} produits.</p>
 									</div>
 									<div class="col-md-6">
 										<div class="row sort-by-row">
@@ -621,12 +621,12 @@
 												<div class="product_desc">
 													<div class="inner_desc">
 														<!-- <div class="manufacturer"><a href="brand/2-graphic-corner.html?id_manufacturer=2">{{ $product->subtitle }}</a></div> -->
-														<div class="manufacturer"><a href="brand/2-graphic-corner.html?id_manufacturer=2">Category:
-																@foreach($product->categories as $category)
-																	{{ $category->name }}
-																@endforeach
-															</a>
-														</div>
+														@foreach($product->sous_categories as $product_category)
+															<div class="manufacturer"><a href="{{ route('product.index', ['sous_categorie' => $product_category->slug]) }}">Category:
+																		{{ $product_category->category->name }}
+																</a>
+															</div>
+														@endforeach
 
 														<h3 itemprop="name"><a href="{{ route('product.show',$product->slug) }}" class="product_name one_line" title="Fila Locker Room Varsity Jacket">{{ $product->title }}</a></h3>
 

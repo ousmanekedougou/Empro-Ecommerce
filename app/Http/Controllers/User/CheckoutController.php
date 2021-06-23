@@ -66,6 +66,9 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'option' => 'required|numeric',
+        ]);
         if ($this->checkIfNotAvailable()) {
              Session::flash('error', 'Un produit dans votre panier n\'est plus disponible');
              return response()->json(['success' => false], 400);
@@ -94,6 +97,7 @@ class CheckoutController extends Controller
         $order->products = serialize($products);
 
         $order->user_id = Auth::user()->id;
+        $order->livraison = $request->option;
         $order->status = STATUS;
 
 
@@ -146,7 +150,8 @@ class CheckoutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        define('LIVRAISON',2);
+        define('LIVRAISON',1);
+        define('STATUSE',2);
         $order = new Order();
         $products = [];
         $i = 0;
@@ -158,10 +163,10 @@ class CheckoutController extends Controller
             $products['product_' . $i ][] = $product->model->price;
             $i++;
         }
-
         $order->products = serialize($products);
         $order->user_id = Auth::user()->id;
-        $order->status = LIVRAISON;
+        $order->status = STATUSE;
+        $order->livraison = LIVRAISON;
         $order->amount_livraison = Cart::total();
         $order->save();
 

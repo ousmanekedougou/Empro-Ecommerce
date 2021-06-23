@@ -97,57 +97,46 @@
 					<!--Grid row-->
 					<div class="row">
 							<!--Grid column-->
-						<div class="col-lg-3">
+						<div class="col-lg-4">
 							<div class="card mb-4">
 								<div class="card-body">
 
-									<h5 class="mb-3">The total amount of</h5>
+									<h5 class="mb-3">Votre Profile</h5>
 
 									<ul class="list-group list-group-flush">
-									<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-										Temporary amount
-										<span>$53.98</span>
-									</li>
-									<li class="list-group-item d-flex justify-content-between align-items-center px-0">
-										Shipping
-										<span>Gratis</span>
-									</li>
-									<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-										<div>
-										<strong>The total amount of</strong>
-										<strong>
-											<p class="mb-0">(including VAT)</p>
-										</strong>
-										</div>
-										<span><strong>$53.98</strong></span>
-									</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+											Nom complet
+											<span>{{$user->name}}</span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+											E-mail
+											<span>{{$user->email}}</span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+											Telephone
+											<span>{{$user->phone}}</span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+											Adresse
+											<span>{{$user->address}}</span>
+										</li>
+									
 									</ul>
 
-									<button type="button" class="btn btn-primary btn-block waves-effect waves-light">go to
-									checkout</button>
+								<a href="{{ route('product.index') }}" class="btn btn-primary btn-block waves-effect waves-light"><i class="fas fa-cart-plus"></i> nouvelles commande</a>
+								<a href="#update_profile_user" class="btn btn-success btn-block waves-effect waves-light mt-3"><i class="fas fa-edit"></i> nouvelles commande</a>
 
 								</div>
 							</div>
 
-							<div class="card mb-4">
-								<div class="card-body">
-
-									<a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
-									aria-expanded="false" aria-controls="collapseExample">
-									Add a discount code (optional)
-									<span><i class="fas fa-chevron-down pt-1"></i></span>
-									</a>
-
-									<div class="collapse" id="collapseExample">
-									<div class="mt-3">
-										<div class="md-form md-outline mb-0">
-										<input type="text" id="discount-code" class="form-control font-weight-light"
-											placeholder="Enter discount code">
-										</div>
-									</div>
-									</div>
-								</div>
-							</div>
+							<a href="#!" onclick=" if(confirm('Etes Vous sure de supprimer votre compte ?')){  event.preventDefault();document.getElementById('delete-user-compte-{{$user->id}}').submit();
+	
+								}else{event.preventDefault();} " type="button" class="card-link-secondary small text-uppercase btn btn-danger btn-block waves-effect waves-light mt-3"><i
+								class="fas fa-trash-alt mr-1"></i> Supprimer votre compte </a>
+							<form id="delete-user-compte-{{$user->id}}" action="{{ route('client.delete_compte',$user->id) }}"  method="post">
+								@csrf
+								@method('DELETE')
+							</form>
 
 						</div> 
 						<!--Grid column-->
@@ -158,11 +147,60 @@
 							@foreach($orders as $order)
 							<div class="card wish-list mb-4">
 								<div class="card-body">
+								<h5 class="mb-3">Votre Commamnde du 
+										@if($order->payment_created_at == null)
+											{{$order->created_at}} 
+										@else
+											{{$order->payment_created_at}} 
+										@endif
+										(<span>2</span> produits) </h5>
 
-									<div class="card-body-header">
-										<h5 class="mb-4">Votre Commamnde du {{$order->payment_created_at}} (<span>2</span> produits) </h5>
-									</div>
-
+									<ul class="list-group list-group-flush" style="font-weight: bold;">
+										
+										@if(getPrice($order->amount) <= 0 && $order->status == 2)
+											<li class="list-group-item d-flex justify-content-between text-danger align-items-center px-0 pb-0">
+												Status de la commande
+												<span>Non Payer</span>
+											</li>
+										@else
+											<li class="list-group-item d-flex text-success justify-content-between align-items-center px-0 pb-0">
+												Status de la commande
+												<span>Payer</span>
+											</li>
+										@endif
+										<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+											Methode de paiment
+											@if(getPrice($order->amount) <= 0 && $order->status == 2)
+												<span>A la livraison</span>
+											@else
+												<span>En ligne avec Stripe</span>
+											@endif
+										</li>
+										<li class="list-group-item d-flex justify-content-between text-bold align-items-center border-0 px-0 pb-0">
+											@if(getPrice($order->amount) <= 0 && $order->status == 2)
+												Somme total a payer
+												<span>{{ getPrice($order->amount_livraison) }}</span>
+											@else
+												Somme total payer
+												<span>{{ getPrice($order->amount) }}</span>
+											@endif
+										</li>
+										<li class="list-group-item d-flex justify-content-between text-bold align-items-center border-0 px-0 ">
+											@if(getPrice($order->amount) <= 0 && $order->status == 2)
+												<a href="#!" onclick=" if(confirm('Etes Vous sure d\'anuller la commande ?')){  event.preventDefault();document.getElementById('delete-form-{{$order->id}}').submit();
+										
+												}else{event.preventDefault();} " type="button" class="card-link-secondary small text-uppercase mr-3 bg-danger text-white" style="padding:8px;border-radius:5px;text-decoration:none;"><i
+												class="fas fa-trash-alt mr-1"></i> Annuler la commande </a>
+												<form id="delete-form-{{$order->id}}" action="{{ route('client.destroy',$order->id) }}"  method="post">
+													@csrf
+													@method('DELETE')
+												</form>
+											@endif
+										</li>
+										
+									</ul>
+								<hr class="mb-4">
+								<h6>Detail de la commande</h6>
 									@foreach(unserialize($order->products) as $product)
 										<div class="row mb-4">
 											<div class="col-md-5 col-lg-3 col-xl-3">
@@ -212,18 +250,7 @@
 										</div>
 									<hr class="mb-4">
 									@endforeach
-									@if($order->amount <= 0)
-										<p class="text-primary mb-0">
-											<a href="#!" onclick=" if(confirm('Etes Vous sure d\'anuller la commande ?')){  event.preventDefault();document.getElementById('delete-form-{{$order->id}}').submit();
-									
-											}else{event.preventDefault();} " type="button" class="card-link-secondary small text-uppercase mr-3"><i
-											class="fas fa-trash-alt mr-1"></i> Annuler la commande </a>
-											<form id="delete-form-{{$order->id}}" action="{{ route('client.destroy',$order->id) }}"  method="post">
-												@csrf
-												@method('DELETE')
-											</form>
-										</p>
-									@endif
+			
 								</div>
 							</div>
 							<hr class="mb-4">
@@ -252,6 +279,91 @@
 								</div>
 								<!-- Card -->
 							@endif
+
+							<div class="card mb-4" id="update_profile_user">
+								<div class="card-body">
+									<h6>Modifier vos informations</h6>
+									<div class="mt-3">
+										<div class="md-form md-outline mb-0">
+											<form action="{{ route('client.update',$user->id) }}" method="post">
+												@csrf
+												{{method_field('PUT')}}
+												<input type="hidden" name="option" value="1">
+												<p>
+													<input type="text" id="discount-code" class="form-control font-weight-light @error('name') is-invalid @enderror"  value="{{ old('name') ?? $user->name  }}" name="name" placeholder="">
+													@error('name')
+														<div class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</div>
+													@enderror
+												</p>
+												<p>
+													<input type="email" id="discount-code" class="form-control font-weight-light @error('email') is-invalid @enderror"  value="{{ old('email') ?? $user->email  }}" name="email" placeholder="">
+													@error('email')
+														<div class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</div>
+													@enderror
+												</p>
+												<p>
+													<input type="number" id="discount-code" class="form-control font-weight-light @error('phone') is-invalid @enderror"  value="{{ old('phone') ?? $user->phone  }}" name="phone" placeholder="">
+													@error('phone')
+														<div class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</div>
+													@enderror
+												</p>
+												<p>
+													<input type="text" id="discount-code" class="form-control font-weight-light @error('address') is-invalid @enderror"  value="{{ old('address') ?? $user->address  }}" name="address" placeholder="">
+													@error('address')
+														<div class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</div>
+													@enderror
+												</p>
+												<div class="row">
+													<div class="col-md-6">
+														<button type="submit" class="btn btn-block btn-success">Enregistre les modification</button>
+													</div>
+													<div class="col-md-6">
+														<button type="reset" class="btn btn-block btn-primary">Reinitialiser</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card mb-4" id="update_profile_user">
+								<div class="card-body">
+									<h6>Modifier votre mot de passe</h6>
+									<div class="mt-3">
+										<div class="md-form md-outline mb-0">
+											<form action="{{ route('client.update',$user->id) }}" method="post">
+												@csrf
+												{{method_field('PUT')}}
+												<input type="hidden" name="option" value="2">
+												<input type="password"  id="discount-code" class="form-control font-weight-light @error('password') is-invalid @enderror" value="{{ old('password') }}" id="password" name="password" placeholder="Nouveau mot de passe">
+												@error('password')
+													<div class="invalid-feedback" role="alert">
+														<strong>{{ $message }}</strong>
+													</div>
+												@enderror
+												<input type="password"  id="discount-code" class="form-control font-weight-light @error('password') is-invalid @enderror" value="{{ old('password-confirm') }}" name="password_confirmation" id="password-confirm" placeholder="Confirmer le nouveau mot de passe">
+												<div class="row">
+													<div class="col-md-6">
+														<button type="submit" class="btn btn-block btn-success">Enregistre les modification</button>
+													</div>
+													<div class="col-md-6">
+														<button type="reset" class="btn btn-block btn-primary">Reinitialiser</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						
 						<!--Grid column-->

@@ -67,13 +67,43 @@
                                                     <a href="{{ route('admin.product.edit',$product->id) }}" class="btn btn-primary waves-effect waves-light mt-2 me-1">
                                                         <i class="fa fa-edit me-2"></i> Modifier
                                                     </a>
-                                                        <form  id="delete-form-{{$product->id}}" method="post" action="{{ route('admin.product.destroy',$product->id) }}"  style="display:none">
-                                                        {{csrf_field()}}
-                                                        {{method_field('delete')}}
-                                                        </form>
-                                                        <a  href="" onclick=" if(confirm('Etes Vous sure de supprimer ce produit ?')){  event.preventDefault();document.getElementById('delete-form-{{$product->id}}').submit();
-                            
-                                                        }else{event.preventDefault();} " class="btn btn-danger waves-effect  mt-2 waves-light"><i class="fa fa-trash me-2"></i>Supprimer</a>
+                                                       
+                                                    <a href="javascript:void(0);" role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#subscribeModalOption-{{ $product->id }}" class="btn btn-danger waves-effect  mt-2 waves-light"><i class="fa fa-trash me-2"></i>Supprimer</a>
+
+                                                    <div class="modal modal-xs fade" id="subscribeModalOption-{{ $product->id }}" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-bottom-0">
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="text-center mb-4">
+                                                                        <div class="avatar-md mx-auto mb-4">
+                                                                            <div class="avatar-title bg-warning rounded-circle text-white h1">
+                                                                                <i class="fa fa-exclamation-circle"></i>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row justify-content-center">
+                                                                            <div class="col-xl-10">
+                                                                                <h4 class="text-danger">Attention !</h4>
+                                                                                <p class="text-muted font-size-14 mb-4">Etes vous sure de bien vouloire supprimer ce produit</p>
+
+                                                                                <div class="input-group bg-white rounded text-center" style="text-align:center;">
+                                                                                    <form  id="delete-form-{{$product->id}}" method="post" action="{{ route('admin.product.destroy',$product->id) }}"  style="display:flex;text-align:center;width:100%;">
+                                                                                        {{csrf_field()}}
+                                                                                        {{method_field('delete')}}
+                                                                                        <button type="submit" class="btn btn-danger btn-xs" style="margin-left: 70px;margin-right:20px;"> Oui je veux bient </button> 
+                                                                                        <button type="button" class="btn btn-success btn-xs" data-bs-dismiss="modal" aria-label="Close"> x Anuller</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
                                                 </div>
                                                 
                                             </div>

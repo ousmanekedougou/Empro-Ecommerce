@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User\Category;
 use App\Models\User\SousCategory;
 use App\Models\User\Product;
+use App\Models\User\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -27,15 +28,24 @@ class ProductController extends Controller
                 $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
                     $query->where('slug',request()->sous_categorie);
                 })->orderBy('created_at','DESC')->paginate(10);
-            }else{
+            }else if (request()->slug_shop) {
+                $shop_id = Shop::where('slug',request()->slug_shop)->first();
+                $products = Product::where('shop_id',$shop_id->id)->orderBy('created_at','DESC')->paginate(10);
+             }
+            else{
                 $products = Product::with('sous_categories')->orderBy('created_at','DESC')->paginate(10);
             }
         }else {
              if (request()->sous_categorie) {
-                $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
+                    $products = Product::with('sous_categories')->whereHas('sous_categories', function ($query){
                     $query->where('slug',request()->sous_categorie);
                 })->where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
-            }else{
+            }
+            else if (request()->slug_shop) {
+                $shop_id = Shop::where('slug',request()->slug_shop)->first();
+                $products = Product::where('shop_id',$shop_id->id)->orderBy('created_at','DESC')->paginate(10);
+             }
+            else{
                 $products = Product::with('sous_categories')->where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
             }
         }
@@ -52,10 +62,12 @@ class ProductController extends Controller
          define('CREATER',1);
         if (Auth::user()->status == CREATER) {
             $categorys = Category::all();
+            $shops = Shop::all();
         }else {
             $categorys = Category::where('user_id',Auth::user()->id)->get();
+            $shops = Shop::where('user_id',Auth::user()->id)->get();
         }
-        return view('admin.product.create',compact('categorys'));
+        return view('admin.product.create',compact('categorys','shops'));
     }
 
     public function search(){
@@ -85,10 +97,10 @@ class ProductController extends Controller
             'sous_name' => 'required|string',
             'slug' => 'required|string',
             'prix' => 'required|numeric',
-            'image' => 'required|image',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'description' => 'required|string',
-            'owner_shop_name' => 'required|string',
-            'owner_adresse' => 'required|string',
+            'shop' => 'required|numeric',
+            'stock' => 'required|numeric',
         ]);
 
         $add_product = new Product();
@@ -110,8 +122,8 @@ class ProductController extends Controller
         $add_product->price = $request->prix;
         $add_product->image =  $imageName;
         $add_product->description = $request->description;
-        $add_product->owner_shop_name = $request->owner_shop_name;
-        $add_product->owner_adresse = $request->owner_adresse;
+        $add_product->shop_id = $request->shop;
+        $add_product->stock = $request->stock;
         $add_product->user_id = Auth::user()->id;
          $add_product->save();
         $add_product->sous_categories()->sync($request->category);
@@ -149,13 +161,15 @@ class ProductController extends Controller
     {
         define('EDIDTED',1);
         if (Auth::user()->status == EDIDTED) {
+            $shops = Shop::all();
             $categorys = Category::all();
             $edit_product = Product::where('id',$id)->first();
         }else {
             $categorys = Category::where('user_id',Auth::user()->id)->get();
             $edit_product = Product::where('id',$id)->where('user_id',Auth::user()->id)->first();
+            $shops = Shop::where('user_id',Auth::user()->id)->get();
         }
-        return view('admin.product.edit',compact('edit_product','categorys'));
+        return view('admin.product.edit',compact('edit_product','categorys','shops'));
     }
 
     /**
@@ -174,6 +188,8 @@ class ProductController extends Controller
             'slug' => 'required|string',
             'prix' => 'required|numeric',
             'description' => 'required|string',
+            'shop' => 'required|numeric',
+            'stock' => 'required|numeric',
         ]);
         if ($request->image  == '') {
             $imageName = $update_product->image;
@@ -188,13 +204,14 @@ class ProductController extends Controller
         }elseif ($request->slug != '') {
             $slug = $request->slug;
         }
-
         $update_product->title = $request->name;
         $update_product->subtitle = $request->sous_name;
         $update_product->slug = $slug;
         $update_product->price = $request->prix;
         $update_product->image =  $imageName;
         $update_product->description = $request->description;
+        $update_product->shop_id = $request->shop;
+        $update_product->stock = $request->stock;
         $update_product->save();
         $update_product->sous_categories()->sync($request->category);
         Session::flash('success' , 'Le produit a bien ete mise a jour');
